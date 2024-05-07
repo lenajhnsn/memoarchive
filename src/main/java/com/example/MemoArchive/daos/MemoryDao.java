@@ -60,17 +60,13 @@ public class MemoryDao {
         }
     }
 
-    // READ -- GET MEMORY BY USER ID
+    // READ -- GET MEMORY BY USER ID //TODO: data access and integrity violations not necessary for gets
 
     public Memory getMemoryByUserId(Integer userId) {
         try { // Start try block to catch any exceptions
             return jdbcTemplate.queryForObject("SELECT * FROM memory WHERE user_id = ?", this::mapRowtoMemory);
         } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
             throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Unable to get data.", e);
         }
     }
 
@@ -127,3 +123,4 @@ public class MemoryDao {
 
     }
 }
+//TODO: For post/put/delete: Create method that can be extended/used; pass
