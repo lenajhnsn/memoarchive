@@ -44,7 +44,7 @@ public interface MemoryInterface {
      *
      * @param memoryId the ID of the Memory to delete
      */
-    boolean deleteMemory(int memoryId);
+    boolean deleteMemory(int memoryId); //TODO: figure out whether to keep this method with a void or boolean return.
 
     /**
      * Retrieves all Memories from the database.

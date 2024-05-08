@@ -79,10 +79,11 @@ public class MemoryContributionDao implements MemoryContributionInterface {
 
     // UPDATE
     @Override
-    public void updateContribution(MemoryContribution contribution) {
+    public MemoryContribution updateContribution(int id, MemoryContribution contribution) {
         try {
             jdbcTemplate.update("UPDATE MemoryContribution SET memory_id = ?, contributor_id = ? WHERE contribution_id = ?",
                     contribution.getMemoryId(), contribution.getContributorId(), contribution.getContributionId());
+            return getContributionByContributionId(id);
         } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema

@@ -47,7 +47,7 @@ public interface MemoryContributionInterface {
      * @param contribution the MemoryContribution to update
      */
 
-    void updateContribution(MemoryContribution contribution);
+    MemoryContribution updateContribution(int id, MemoryContribution contribution);
 
     /**
      * Deletes a MemoryContribution from the database by ID.
