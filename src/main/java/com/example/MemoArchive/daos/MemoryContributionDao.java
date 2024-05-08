@@ -31,7 +31,7 @@ public class MemoryContributionDao implements MemoryContributionInterface {
 
     // CREATE
     @Override
-    public MemoryContribution add(MemoryContribution contribution) {
+    public MemoryContribution addMemoryContribution(MemoryContribution contribution) {
         try {
             jdbcTemplate.update("INSERT INTO MemoryContribution (memory_id, contributor_id) VALUES (?, ?)",
                     contribution.getMemoryId(), contribution.getContributorId());
@@ -47,7 +47,7 @@ public class MemoryContributionDao implements MemoryContributionInterface {
 
     // GET BY CONTRIBUTION ID
     @Override
-    public MemoryContribution findByContributionId(int id) {
+    public MemoryContribution getContributionByContributionId(int id) {
         try {
             return jdbcTemplate.queryForObject(
                     "SELECT * FROM MemoryContribution WHERE contribution_id = ?", this::mapRowtoMemoryContribution, id);
@@ -58,28 +58,28 @@ public class MemoryContributionDao implements MemoryContributionInterface {
 
     // GET BY MEMORY ID
     @Override
-    public List<MemoryContribution> findByMemoryId(int memoryId) {
+    public List<MemoryContribution> getContributionByMemoryId(int memoryId) {
         return jdbcTemplate.query("SELECT * FROM MemoryContribution WHERE memory_id = ?",
                 this::mapRowtoMemoryContribution, memoryId);
     }
 
     // GET BY CONTRIBUTOR ID
     @Override
-    public List<MemoryContribution> findByContributorId(int contributorId) {
+    public List<MemoryContribution> getContributionByContributorId(int contributorId) {
         return jdbcTemplate.query("SELECT * FROM MemoryContribution WHERE contributor_id = ?",
                 this::mapRowtoMemoryContribution, contributorId);
     }
 
     // GET ALL
     @Override
-    public List<MemoryContribution> findAll() {
+    public List<MemoryContribution> getAllMemoryContributions() {
         return jdbcTemplate.query(
                 "SELECT * FROM MemoryContribution", this::mapRowtoMemoryContribution);
     }
 
     // UPDATE
     @Override
-    public void update(MemoryContribution contribution) {
+    public void updateContribution(MemoryContribution contribution) {
         try {
             jdbcTemplate.update("UPDATE MemoryContribution SET memory_id = ?, contributor_id = ? WHERE contribution_id = ?",
                     contribution.getMemoryId(), contribution.getContributorId(), contribution.getContributionId());
@@ -94,7 +94,7 @@ public class MemoryContributionDao implements MemoryContributionInterface {
 
     // DELETE
     @Override
-    public void deleteById(int id) {
+    public void deleteContributionById(int id) {
         try {
             jdbcTemplate.update("DELETE FROM MemoryContribution WHERE contribution_id = ?", id);
         } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed

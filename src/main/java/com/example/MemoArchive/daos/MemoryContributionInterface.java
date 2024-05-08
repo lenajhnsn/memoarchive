@@ -13,7 +13,7 @@ public interface MemoryContributionInterface {
      * @param id the primary key of the MemoryContribution to find
      * @return the found MemoryContribution, or null if not found
      */
-    MemoryContribution findByContributionId(int id);
+    MemoryContribution getContributionByContributionId(int id);
 
     /**
      * Finds all MemoryContribution records associated with a specific memory ID.
@@ -21,7 +21,7 @@ public interface MemoryContributionInterface {
      * @param memoryId the ID of the memory to fetch contributions for
      * @return a list of MemoryContribution entities
      */
-    List<MemoryContribution> findByMemoryId(int memoryId);
+    List<MemoryContribution> getContributionByMemoryId(int memoryId);
 
     /**
      * Finds all MemoryContribution records associated with a specific contributor ID.
@@ -30,7 +30,7 @@ public interface MemoryContributionInterface {
      * @return a list of MemoryContribution entities
      */
 
-    List<MemoryContribution> findByContributorId(int contributorId);
+    List<MemoryContribution> getContributionByContributorId(int contributorId);
 
     /**
      * Saves a new MemoryContribution to the database.
@@ -39,7 +39,7 @@ public interface MemoryContributionInterface {
      * @return the saved MemoryContribution, potentially updated with new data (e.g., auto-generated ID)
      */
 
-    MemoryContribution add(MemoryContribution contribution);
+    MemoryContribution addMemoryContribution(MemoryContribution contribution);
 
     /**
      * Updates an existing MemoryContribution in the database.
@@ -47,19 +47,19 @@ public interface MemoryContributionInterface {
      * @param contribution the MemoryContribution to update
      */
 
-    void update(MemoryContribution contribution);
+    void updateContribution(MemoryContribution contribution);
 
     /**
      * Deletes a MemoryContribution from the database by ID.
      *
      * @param id the ID of the MemoryContribution to delete
      */
-    void deleteById(int id);
+    void deleteContributionById(int id);
 
     /**
      * Retrieves all MemoryContributions from the database.
      *
      * @return a list of all MemoryContributions
      */
-    List<MemoryContribution> findAll();
+    List<MemoryContribution> getAllMemoryContributions();
 }

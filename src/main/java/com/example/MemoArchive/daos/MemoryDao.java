@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller // Controller annotation allows Spring to make DAO
-public class MemoryDao {
+public class MemoryDao implements MemoryInterface {
 
     // INSTANCE VARIABLES
     private JdbcTemplate jdbcTemplate;
@@ -30,12 +30,13 @@ public class MemoryDao {
 
     // ----METHODS----
 
-    // CREATE (POST)
-
+    // CREATE
+    @Override
     public boolean addMemory(Memory memory) {
         try {
             String sql = "INSERT INTO memory (user_id, type, content, description, memory_date, creation_date) VALUES (?, ?, ?, ?, ?, ?)";
-            return jdbcTemplate.update(sql, memory.getUserId(), memory.getType(), memory.getContent(), memory.getDescription(), memory.getMemoryDate(), memory.getCreationDate()) > 0;
+            int rowsAffected = jdbcTemplate.update(sql, memory.getUserId(), memory.getType(), memory.getContent(), memory.getDescription(), memory.getMemoryDate(), memory.getCreationDate());
+            return rowsAffected > 0;
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
@@ -47,24 +48,20 @@ public class MemoryDao {
     }
 
     // READ -- GET MEMORY BY MEMORY ID
-
-    public Memory getMemoryByMemoryId(Integer memoryId) {
+    @Override
+    public Memory getMemoryByMemoryId(int memoryId) {
         try { // Start try block to catch any exceptions
-            return jdbcTemplate.queryForObject("SELECT * FROM memory WHERE memory_id = ?", this::mapRowtoMemory);
+            return jdbcTemplate.queryForObject("SELECT * FROM memory WHERE memory_id = ?", this::mapRowtoMemory, memoryId);
         } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
             throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Unable to get data.", e);
         }
     }
 
-    // READ -- GET MEMORY BY USER ID //TODO: data access and integrity violations not necessary for gets
-
-    public Memory getMemoryByUserId(Integer userId) {
+    // READ -- GET MEMORY BY USER ID
+    @Override
+    public Memory getMemoryByUserId(int userId) {
         try { // Start try block to catch any exceptions
-            return jdbcTemplate.queryForObject("SELECT * FROM memory WHERE user_id = ?", this::mapRowtoMemory);
+            return jdbcTemplate.queryForObject("SELECT * FROM memory WHERE user_id = ?", this::mapRowtoMemory, userId);
         } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
             throw new DaoException("Unable to connect to server or database", e);
         }
@@ -72,7 +69,7 @@ public class MemoryDao {
 
     // READ -- GET ALL
 
-    public List<Memory> getAll() {
+    public List<Memory> getAllMemories() {
         return jdbcTemplate.query("SELECT * FROM memory", this::mapRowtoMemory);
         // Query function takes care of looping and adding results to the list
     }
@@ -81,11 +78,13 @@ public class MemoryDao {
 
     public boolean updateMemory(Memory memory) {
         try {
-            String sql = "UPDATE memory SET type = ?, content = ?, description = ?, memory_date = ?, creation_date = ? WHERE id = ?";
-            return jdbcTemplate.update(sql, memory.getUserId(), memory.getMemoryId()) > 0;
+            String sql = "UPDATE memory SET type = ?, content = ?, description = ?, memory_date = ?, creation_date = ? WHERE memory_id = ?";
+            int rowsAffected = jdbcTemplate.update(sql, memory.getType(), memory.getContent(), memory.getDescription(), memory.getMemoryDate(), memory.getCreationDate(), memory.getMemoryId());
+            return rowsAffected > 0;
         } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
             throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
+        } catch (
+                DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
             throw new DaoException("Data integrity violation", e);
         } catch (DataAccessException e) {
             throw new DaoException("Data access error.", e);
@@ -94,14 +93,15 @@ public class MemoryDao {
     }
 
     // DELETE
-
-    public boolean deleteMemory(Integer memoryId) {
+    @Override
+    public boolean deleteMemory(int memoryId) {
         try {
-            String sql = "DELETE FROM memory WHERE id = ?";
-            return jdbcTemplate.update(sql, memoryId) > 0;
+            String sql = "DELETE FROM memory WHERE memory_id = ?";
+            return jdbcTemplate.update(sql, memoryId) > 0; // return number of rows affected greater than 0 (boolean)
         } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
             throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
+        } catch (
+                DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
             throw new DaoException("Data integrity violation", e);
         } catch (DataAccessException e) {
             throw new DaoException("Data access error.", e);
@@ -123,4 +123,5 @@ public class MemoryDao {
 
     }
 }
+
 //TODO: For post/put/delete: Create method that can be extended/used; pass
