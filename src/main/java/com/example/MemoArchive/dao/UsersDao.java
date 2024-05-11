@@ -1,6 +1,7 @@
 package com.example.MemoArchive.dao;
 
 import com.example.MemoArchive.model.Users;
+import com.example.MemoArchive.utility.DaoExceptionUtil;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -9,11 +10,13 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Controller;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class UsersDao implements GeneralDaoInterface<Users> {
+public class UsersDao implements UsersInterface {
     // INSTANCE VARIABLES
     private JdbcTemplate jdbcTemplate;
 
@@ -26,88 +29,53 @@ public class UsersDao implements GeneralDaoInterface<Users> {
 
     // CREATE
     @Override
-    public boolean add(Users user) {
-        try {
+    public Users addUser(Users user) {
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
             String sql = "INSERT INTO users (first_name, last_name, email, password, account_creation_date) VALUES (?, ?, ?, ?, ?)";
-            return jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getAccountCreationDate()) > 0;
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Data access error.", e);
-        }
+            jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getAccountCreationDate());
+            return user;
+        });
     }
 
-    // READ USERS ID
+    // READ -- GET BY USER ID
     @Override
-    public Users getById(Integer userId) {
-        try {
-            SqlRowSet rowSet = jdbcTemplate.queryForRowSet("select * from users where user_id = ?", userId);
-            if (rowSet.next()) {
-                return mapRowToUser(rowSet);
-            }
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Data access error.", e);
-        }
-        return null;
+    public Users getUserByUserId(int userId) {
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
+            String sql = "SELECT * FROM users WHERE user_id = ?";
+            return jdbcTemplate.queryForObject(sql, this::mapRowToUser, userId);
+        });
     }
 
     // GET LIST OF ALL TAGS
     @Override
-    public List<Users> getAll() {
-        List<Users> user = new ArrayList<>();
-        try {
-            SqlRowSet rowSet = jdbcTemplate.queryForRowSet("select * from users");
-            while (rowSet.next()) {
-                user.add(mapRowToUser(rowSet));
-            }
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Data access error.", e);
-        }
-        return user;
+    public List<Users> getAllUsers() {
+        // Query function takes care of looping and adding results to the list
+        return jdbcTemplate.query("select * from users", this::mapRowToUser);
+
     }
 
     // UPDATE USER
     @Override
-    public boolean update(Users user) {
-        try {
+    public boolean updateUser(Users user) {
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
             String sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, account_creation_date = ? WHERE user_id = ?";
-            return jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getUserId()) > 0;
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Data access error.", e);
-        }
+            int rowsAffected = jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getAccountCreationDate(), user.getUserId());
+            return rowsAffected > 0; // Return true if the update was successful
+        });
     }
 
     // DELETE USER
     @Override
-    public boolean delete(Integer userId) {
-        try {
+    public boolean deleteUser(int userId) {
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
             String sql = "DELETE FROM users WHERE user_id = ?";
-            return jdbcTemplate.update(sql, userId) > 0;
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Data access error.", e);
-        }
+            int rowsAffected = jdbcTemplate.update(sql, userId);
+            return rowsAffected > 0; // Return true if the deletion was successful
+        });
     }
 
     // MAP ROW TO USER
-    public Users mapRowToUser(SqlRowSet rowSet){
+    public Users mapRowToUser(ResultSet rowSet, int rowNumber) throws SQLException {
         Users user = new Users();
         user.setUserId(rowSet.getInt("user_id"));
         user.setFirstName(rowSet.getString("first_name"));
