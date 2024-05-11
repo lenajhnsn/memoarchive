@@ -2,6 +2,7 @@ package com.example.MemoArchive.dao;
 
 import com.example.MemoArchive.exception.DaoException;
 import com.example.MemoArchive.model.Permission;
+import com.example.MemoArchive.utility.DaoExceptionUtil;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -9,114 +10,90 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 //TODO: Finish CRUD methods, implement interface, add DOA exceptions
 //TODO: Stretch goal is add method that reduces the repetitive exception handling try/catch blocks
 @Controller // Controller annotation allows Spring to create DAO
-public class PermissionDao {
-    // INSTANCE VARIABLES
+public class PermissionDao implements PermissionInterface {
     private JdbcTemplate jdbcTemplate;
 
-    // Spring creates the datasource
+    // Constructor
     public PermissionDao(DataSource dataSource) {
-        private JdbcTemplate jdbcTemplate;
-
-        // Spring creates a constructor that injects the datasource object required by JdbcTemplate
-    public MemoryContributionDao(DataSource dataSource) { // Provides connection config to the database
-            this.jdbcTemplate = new JdbcTemplate(dataSource);
-        }
-
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     // ----METHODS----
 
-    // CREATE (POST)
+    // CREATE
+    @Override
+    public Permission addPermission(Permission permission) {
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
+            String sql = "INSERT INTO permission (access_type, owner_user_id, contributor_user_id) VALUES (?, ?, ?)";
+            jdbcTemplate.update(sql, permission.getAccessType(), permission.getOwnerUserId(), permission.getContributorUserId());
+            return permission; // Return the original permission object
+        });
+    }
 
-    // READ -- GET BY ID
-
-    // READ -- GET MEMORY BY PERMISSION ID
-
+    // READ -- GET BY PERMISSION ID (primary key)
+    @Override
     public Permission getPermissionByPermissionId(Integer permissionId) {
-        try { // Start try block to catch any exceptions
-            return jdbcTemplate.queryForObject("SELECT * FROM permission WHERE permission_id = ?", this::mapRowtoPermission);
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Unable to get data.", e);
-        }
+        return DaoExceptionUtil.handleJdbcOperation(() ->
+                jdbcTemplate.queryForObject("SELECT * FROM permission WHERE permission_id = ?", this::mapRowtoPermission, permissionId)
+        );
     }
 
-    // READ -- GET MEMORY BY OWNER ID
-
+    // READ -- GET BY OWNER ID
+    @Override
     public Permission getPermissionByOwnerId(Integer ownerUserId) {
-        try { // Start try block to catch any exceptions
-            return jdbcTemplate.queryForObject("SELECT * FROM permission WHERE owner_user_id = ?", this::mapRowtoPermission);
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Unable to get data.", e);
-        }
+        return DaoExceptionUtil.handleJdbcOperation(() ->
+                jdbcTemplate.queryForObject("SELECT * FROM permission WHERE owner_user_id = ?", this::mapRowtoPermission, ownerUserId)
+        );
     }
-    // READ -- GET MEMORY BY Co ID
 
+    // READ -- GET PERMISSION BY CONTRIBUTOR ID
+    @Override
     public Permission getPermissionByContributorId(Integer contributorUserId) {
-        try { // Start try block to catch any exceptions
-            return jdbcTemplate.queryForObject("SELECT * FROM permission WHERE contributor_user_id = ?", this::mapRowtoPermission);
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Unable to get data.", e);
-        }
+        return DaoExceptionUtil.handleJdbcOperation(() ->
+                jdbcTemplate.queryForObject("SELECT * FROM permission WHERE contributor_user_id = ?", this::mapRowtoPermission, contributorUserId)
+        );
     }
 
     // READ -- GET ALL PERMISSIONS
-    public List<Permission> getAll() {
+    @Override
+    public List<Permission> getAllPermissions() {
         return jdbcTemplate.query("select * from permission", this::mapRowtoPermission);
     }
 
-    // UPDATE (PUT)
-
+    // UPDATE
+    @Override
     public boolean updatePermission(Permission permission) {
-        try {
-            String sql = "UPDATE permission SET access_type = ?, owner_user_id = ?, contributorUserId = ?, WHERE permission_id = ?"; //TODO: Should owner/contributor IDs be included in the set properties?
-            return jdbcTemplate.update(sql, permission.getPermissionId(), permission.getOwnerUserId(), permission.getContributorUserId()) > 0;
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Data access error.", e);
-        }
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
+            String sql = "UPDATE permission SET access_type = ?, owner_user_id = ?, contributor_user_id = ? WHERE permission_id = ?";
+            int rowsAffected = jdbcTemplate.update(sql, permission.getAccessType(), permission.getOwnerUserId(), permission.getContributorUserId(), permission.getPermissionId());
+            return rowsAffected > 0;
+        });
     }
+
     // DELETE
-
+    @Override
     public boolean deletePermission(int permissionId) {
-        try {
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
             String sql = "DELETE FROM permission WHERE permission_id = ?";
-            return jdbcTemplate.update(sql, permissionId) > 0;
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Data access error.", e);
-        }
+            int rowsAffected = jdbcTemplate.update(sql, permissionId);
+            return rowsAffected > 0;
+        });
     }
 
-    // MAP ROW SET
-    private Permission mapRowtoPermission(ResultSet row, int rowNumber) throws SQLException {
+    // MAP ROW TO PERMISSION
+    private Permission mapRowtoPermission(ResultSet rs, int rowNum) throws SQLException {
         Permission permission = new Permission();
-        permission.setPermissionId(row.getInt("permission_id"));
-        permission.setOwnerUserId(row.getInt("owner_user_id"));
-        permission.setContributorUserId(row.getInt("contributor_user_id"));
-        permission.setAccessType(row.getString("access_type"));
+        permission.setPermissionId(rs.getInt("permission_id"));
+        permission.setOwnerUserId(rs.getInt("owner_user_id"));
+        permission.setContributorUserId(rs.getInt("contributor_user_id"));
+        permission.setAccessType(rs.getString("access_type"));
         return permission;
-
     }
 }

@@ -29,7 +29,7 @@ public interface MemoryInterface {
      * @return the saved Memory, potentially updated with new data (e.g., auto-generated ID)
      */
 
-    boolean addMemory(Memory memory);
+    Memory addMemory(Memory memory);
 
     /**
      * Updates an existing Memory in the database.

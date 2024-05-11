@@ -6,51 +6,59 @@ import com.example.MemoArchive.model.Permission;
 import java.util.List;
 
 public interface PermissionInterface {
-    /**
-     * Finds a Permission level by its primary key ID.
-     *
-     * @param permissionId the primary key of the Memory to find
-     * @return the found Memory, or null if not found
-     */
-    Permission getPermissionByPermissionId(int permissionId);
 
-    /**
-     * Finds a Memory by its primary key ID.
-     *
-     * @param userId the primary key of the Memory to find
-     * @return the found Memory, or null if not found
-     */
-    Memory getMemoryByUserId(int userId);
+        /**
+         * Adds a new Permission to the database.
+         *
+         * @param permission The Permission object to add.
+         * @return The Permission object after being added to the database.
+         */
+        Permission addPermission(Permission permission);
 
+        /**
+         * Retrieves a Permission by its primary key ID.
+         *
+         * @param permissionId The primary key of the Permission to find.
+         * @return The found Permission, or null if not found.
+         */
+        Permission getPermissionByPermissionId(Integer permissionId);
 
-    /**
-     * Saves a new Memory to the database.
-     *
-     * @param memory the Memory to save
-     * @return the saved Memory, potentially updated with new data (e.g., auto-generated ID)
-     */
+        /**
+         * Retrieves a Permission by the owner's user ID.
+         *
+         * @param ownerUserId The user ID of the owner to find Permissions for.
+         * @return The found Permission, or null if not found.
+         */
+        Permission getPermissionByOwnerId(Integer ownerUserId);
 
-    boolean addMemory(Memory memory);
+        /**
+         * Retrieves a Permission by the contributor's user ID.
+         *
+         * @param contributorUserId The user ID of the contributor to find Permissions for.
+         * @return The found Permission, or null if not found.
+         */
+        Permission getPermissionByContributorId(Integer contributorUserId);
 
-    /**
-     * Updates an existing Memory in the database.
-     *
-     * @param memory the Memory to update
-     */
+        /**
+         * Retrieves all Permissions from the database.
+         *
+         * @return A list of all Permissions.
+         */
+        List<Permission> getAllPermissions();
 
-    boolean updateMemory(Memory memory);
+        /**
+         * Updates an existing Permission in the database.
+         *
+         * @param permission The Permission to update.
+         * @return true if the update was successful, false otherwise.
+         */
+        boolean updatePermission(Permission permission);
 
-    /**
-     * Deletes a Memory from the database by ID.
-     *
-     * @param memoryId the ID of the Memory to delete
-     */
-    boolean deleteMemory(int memoryId); //TODO: figure out whether to keep this method with a void or boolean return.
-
-    /**
-     * Retrieves all Memories from the database.
-     *
-     * @return a list of all Memories
-     */
-    List<Memory> getAllMemories();
-}
+        /**
+         * Deletes a Permission from the database by its ID.
+         *
+         * @param permissionId The ID of the Permission to delete.
+         * @return true if the deletion was successful, false otherwise.
+         */
+        boolean deletePermission(int permissionId);
+    }

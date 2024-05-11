@@ -29,7 +29,7 @@ public class MemoryDao implements MemoryInterface {
 
     // CREATE
     @Override
-    public boolean addMemory(Memory memory) {
+    public Memory addMemory(Memory memory) {
         /*
         Use the DaoExceptionUtil to handle any exceptions during the JDBC operation.
         A lambda expression is passed to the handleJdbcOperation method.
@@ -39,8 +39,8 @@ public class MemoryDao implements MemoryInterface {
             // SQL query to insert a new memory into the database.
             String sql = "INSERT INTO memory (user_id, type, content, description, memory_date, creation_date) VALUES (?, ?, ?, ?, ?, ?)";
             // Execute the update operation which returns the number of rows affected.
-            int rowsAffected = jdbcTemplate.update(sql, memory.getUserId(), memory.getType(), memory.getContent(), memory.getDescription(), memory.getMemoryDate(), memory.getCreationDate());
-            return rowsAffected > 0; // Return true if the update was successful
+           jdbcTemplate.update(sql, memory.getUserId(), memory.getType(), memory.getContent(), memory.getDescription(), memory.getMemoryDate(), memory.getCreationDate());
+            return memory; // Return true if the update was successful
         });
     }
 
@@ -72,7 +72,7 @@ public class MemoryDao implements MemoryInterface {
     }
 
     // UPDATE (PUT)
-
+//TODO: Should I return a boolean here or return the object?
     public boolean updateMemory(Memory memory) {
         // Run update operation using exception handling provided by DaoExceptionUtil.
         return DaoExceptionUtil.handleJdbcOperation(() -> {
