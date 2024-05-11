@@ -1,20 +1,17 @@
-package com.example.MemoArchive.daos;
+package com.example.MemoArchive.dao;
 
-import com.example.MemoArchive.exceptions.DaoException;
-import com.example.MemoArchive.models.Memory;
-import com.example.MemoArchive.models.MemoryContribution;
+import com.example.MemoArchive.exception.DaoException;
+import com.example.MemoArchive.model.Memory;
+import com.example.MemoArchive.utility.DaoExceptionUtil;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Controller;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller // Controller annotation allows Spring to make DAO
@@ -33,18 +30,18 @@ public class MemoryDao implements MemoryInterface {
     // CREATE
     @Override
     public boolean addMemory(Memory memory) {
-        try {
+        /*
+        Use the DaoExceptionUtil to handle any exceptions during the JDBC operation.
+        A lambda expression is passed to the handleJdbcOperation method.
+        From Research: Database operations are wrapped in lambda expressions. This simplifies passing the operation to the utility method.
+         */
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
+            // SQL query to insert a new memory into the database.
             String sql = "INSERT INTO memory (user_id, type, content, description, memory_date, creation_date) VALUES (?, ?, ?, ?, ?, ?)";
+            // Execute the update operation which returns the number of rows affected.
             int rowsAffected = jdbcTemplate.update(sql, memory.getUserId(), memory.getType(), memory.getContent(), memory.getDescription(), memory.getMemoryDate(), memory.getCreationDate());
-            return rowsAffected > 0;
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Data access error.", e);
-        }
-
+            return rowsAffected > 0; // Return true if the update was successful
+        });
     }
 
     // READ -- GET MEMORY BY MEMORY ID
@@ -77,35 +74,22 @@ public class MemoryDao implements MemoryInterface {
     // UPDATE (PUT)
 
     public boolean updateMemory(Memory memory) {
-        try {
+        // Run update operation using exception handling provided by DaoExceptionUtil.
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
             String sql = "UPDATE memory SET type = ?, content = ?, description = ?, memory_date = ?, creation_date = ? WHERE memory_id = ?";
             int rowsAffected = jdbcTemplate.update(sql, memory.getType(), memory.getContent(), memory.getDescription(), memory.getMemoryDate(), memory.getCreationDate(), memory.getMemoryId());
             return rowsAffected > 0;
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (
-                DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Data access error.", e);
-        }
-
+        });
     }
 
     // DELETE
     @Override
     public boolean deleteMemory(int memoryId) {
-        try {
+        // Handle deletion within DaoExceptionUtil
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
             String sql = "DELETE FROM memory WHERE memory_id = ?";
             return jdbcTemplate.update(sql, memoryId) > 0; // return number of rows affected greater than 0 (boolean)
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (
-                DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Data access error.", e);
-        }
+        });
     }
 
     // MAP ROW SET
@@ -123,5 +107,3 @@ public class MemoryDao implements MemoryInterface {
 
     }
 }
-
-//TODO: For post/put/delete: Create method that can be extended/used; pass

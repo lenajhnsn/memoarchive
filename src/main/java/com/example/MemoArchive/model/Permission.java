@@ -1,4 +1,4 @@
-package com.example.MemoArchive.models;
+package com.example.MemoArchive.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

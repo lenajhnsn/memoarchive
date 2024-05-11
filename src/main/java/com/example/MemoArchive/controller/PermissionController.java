@@ -1,6 +1,6 @@
-package com.example.MemoArchive.controllers;
+package com.example.MemoArchive.controller;
 
-import com.example.MemoArchive.daos.PermissionDao;
+import com.example.MemoArchive.dao.PermissionDao;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

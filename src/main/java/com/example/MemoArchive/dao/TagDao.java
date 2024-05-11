@@ -1,7 +1,6 @@
-package com.example.MemoArchive.daos;
+package com.example.MemoArchive.dao;
 
-import com.example.MemoArchive.models.Permission;
-import com.example.MemoArchive.models.Tag;
+import com.example.MemoArchive.model.Tag;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;

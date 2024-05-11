@@ -1,10 +1,8 @@
-package com.example.MemoArchive.controllers;
+package com.example.MemoArchive.controller;
 
-import com.example.MemoArchive.daos.MemoryContributionDao;
-import com.example.MemoArchive.daos.PermissionDao;
-import com.example.MemoArchive.models.MemoryContribution;
+import com.example.MemoArchive.dao.MemoryContributionDao;
+import com.example.MemoArchive.model.MemoryContribution;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

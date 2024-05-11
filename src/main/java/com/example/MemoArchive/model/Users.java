@@ -1,11 +1,10 @@
-package com.example.MemoArchive.models;
+package com.example.MemoArchive.model;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.AnyDiscriminator;
 
 import java.time.LocalDate;
 

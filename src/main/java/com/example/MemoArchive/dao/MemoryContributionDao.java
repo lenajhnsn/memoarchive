@@ -1,23 +1,20 @@
-package com.example.MemoArchive.daos;
+package com.example.MemoArchive.dao;
 
-import com.example.MemoArchive.exceptions.DaoException;
-import com.example.MemoArchive.models.Memory;
-import com.example.MemoArchive.models.MemoryContribution;
-import com.example.MemoArchive.models.Permission;
+import com.example.MemoArchive.exception.DaoException;
+import com.example.MemoArchive.model.MemoryContribution;
+import com.example.MemoArchive.utility.DaoExceptionUtil;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Controller;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-//TODO: Stretch goal is add method that reduces the repetitive exception handling try/catch blocks
+
 @Controller // Controller annotation allows Spring to create DAO
 public class MemoryContributionDao implements MemoryContributionInterface {
     private JdbcTemplate jdbcTemplate;
@@ -32,17 +29,15 @@ public class MemoryContributionDao implements MemoryContributionInterface {
     // CREATE
     @Override
     public MemoryContribution addMemoryContribution(MemoryContribution contribution) {
-        try {
+        /*
+        Use the DaoExceptionUtil to handle any exceptions during the JDBC operation.
+        A lambda expression is passed to the handleJdbcOperation method.
+        */
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
             jdbcTemplate.update("INSERT INTO MemoryContribution (memory_id, contributor_id) VALUES (?, ?)",
                     contribution.getMemoryId(), contribution.getContributorId());
             return contribution;
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Data access error.", e);
-        }
+        });
     }
 
     // GET BY CONTRIBUTION ID
@@ -80,31 +75,22 @@ public class MemoryContributionDao implements MemoryContributionInterface {
     // UPDATE
     @Override
     public MemoryContribution updateContribution(int id, MemoryContribution contribution) {
-        try {
+        // Update a specific contribution using provided details.
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
             jdbcTemplate.update("UPDATE MemoryContribution SET memory_id = ?, contributor_id = ? WHERE contribution_id = ?",
                     contribution.getMemoryId(), contribution.getContributorId(), contribution.getContributionId());
             return getContributionByContributionId(id);
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Data access error.", e);
-        }
+        });
     }
 
     // DELETE
     @Override
     public void deleteContributionById(int id) {
-        try {
+        // Delete a memory contribution by ID. Handle exceptions with DaoExceptionUtil
+        DaoExceptionUtil.handleJdbcOperation(() -> {
             jdbcTemplate.update("DELETE FROM MemoryContribution WHERE contribution_id = ?", id);
-        } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) { // Something violated data integrity constraints defined in schema
-            throw new DaoException("Data integrity violation", e);
-        } catch (DataAccessException e) {
-            throw new DaoException("Data access error.", e);
-        }
+            return null; // Null is necessary for void methods
+        });
     }
 
     // MAP ROW SET

@@ -1,4 +1,6 @@
-package com.example.MemoArchive.exceptions;
+package com.example.MemoArchive.exception;
+
+import java.sql.SQLException;
 
 public class DaoException extends RuntimeException {
 

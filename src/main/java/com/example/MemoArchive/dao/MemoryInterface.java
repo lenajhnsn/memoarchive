@@ -1,6 +1,6 @@
-package com.example.MemoArchive.daos;
+package com.example.MemoArchive.dao;
 
-import com.example.MemoArchive.models.Memory;
+import com.example.MemoArchive.model.Memory;
 
 import java.util.List;
 

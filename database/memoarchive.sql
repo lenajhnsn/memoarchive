@@ -7,7 +7,7 @@ first_name VARCHAR(50) NOT NULL,
 last_name VARCHAR(50) NOT NULL,
 email VARCHAR(50) UNIQUE NOT NULL,
 password VARCHAR(50) NOT NULL,
-username VARCHAR(25) NOT NULL,
+username VARCHAR(25) NOT NULL, --TODO: add unique
 account_creation_date DATE NOT NULL);
 
 
@@ -48,7 +48,7 @@ FOREIGN KEY (memory_id) REFERENCES Memory(memory_id) ON DELETE CASCADE,
 FOREIGN KEY (contributor_id) REFERENCES Users(user_id) ON DELETE CASCADE);
 
 
--- Create Permission Table
+-- Create Permission Table (who can access different memories)
 CREATE TABLE Permission (
 permission_id serial PRIMARY KEY,
 owner_user_id INT NOT NULL,
@@ -57,4 +57,7 @@ access_type VARCHAR(50) NOT NULL,
 FOREIGN KEY (owner_user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
 FOREIGN KEY (contributor_user_id) REFERENCES Users(user_id) ON DELETE CASCADE);
 
+-- Authority table
+
+-- Role table (admin,
 COMMIT;

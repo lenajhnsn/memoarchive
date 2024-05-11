@@ -1,4 +1,4 @@
-package com.example.MemoArchive.daos;
+package com.example.MemoArchive.dao;
 
 import org.springframework.stereotype.Controller;
 

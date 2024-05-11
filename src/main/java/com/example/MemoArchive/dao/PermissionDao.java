@@ -1,8 +1,7 @@
-package com.example.MemoArchive.daos;
+package com.example.MemoArchive.dao;
 
-import com.example.MemoArchive.exceptions.DaoException;
-import com.example.MemoArchive.models.Memory;
-import com.example.MemoArchive.models.Permission;
+import com.example.MemoArchive.exception.DaoException;
+import com.example.MemoArchive.model.Permission;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -10,11 +9,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 //TODO: Finish CRUD methods, implement interface, add DOA exceptions
+//TODO: Stretch goal is add method that reduces the repetitive exception handling try/catch blocks
 @Controller // Controller annotation allows Spring to create DAO
 public class PermissionDao {
     // INSTANCE VARIABLES
@@ -22,8 +20,13 @@ public class PermissionDao {
 
     // Spring creates the datasource
     public PermissionDao(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+        private JdbcTemplate jdbcTemplate;
+
+        // Spring creates a constructor that injects the datasource object required by JdbcTemplate
+    public MemoryContributionDao(DataSource dataSource) { // Provides connection config to the database
+            this.jdbcTemplate = new JdbcTemplate(dataSource);
+        }
+
 
     // ----METHODS----
 
