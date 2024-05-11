@@ -7,7 +7,7 @@ first_name VARCHAR(50) NOT NULL,
 last_name VARCHAR(50) NOT NULL,
 email VARCHAR(50) UNIQUE NOT NULL,
 password VARCHAR(50) NOT NULL,
-username VARCHAR(25) NOT NULL, --TODO: add unique
+username VARCHAR(25) UNIQUE NOT NULL,
 account_creation_date DATE NOT NULL);
 
 
