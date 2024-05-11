@@ -17,7 +17,6 @@ import java.util.List;
 @Controller // Controller annotation allows Spring to make DAO
 public class MemoryDao implements MemoryInterface {
 
-    // INSTANCE VARIABLES
     private JdbcTemplate jdbcTemplate;
 
     // Spring creates the datasource
