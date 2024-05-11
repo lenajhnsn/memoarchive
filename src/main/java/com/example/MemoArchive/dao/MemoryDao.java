@@ -3,8 +3,6 @@ package com.example.MemoArchive.dao;
 import com.example.MemoArchive.exception.DaoException;
 import com.example.MemoArchive.model.Memory;
 import com.example.MemoArchive.utility.DaoExceptionUtil;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;

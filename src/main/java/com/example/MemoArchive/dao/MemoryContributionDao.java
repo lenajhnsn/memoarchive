@@ -4,8 +4,6 @@ import com.example.MemoArchive.exception.DaoException;
 import com.example.MemoArchive.model.MemoryContribution;
 import com.example.MemoArchive.utility.DaoExceptionUtil;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 
@@ -85,11 +83,11 @@ public class MemoryContributionDao implements MemoryContributionInterface {
 
     // DELETE
     @Override
-    public void deleteContributionById(int id) {
+    public boolean deleteContributionById(int id) {
         // Delete a memory contribution by ID. Handle exceptions with DaoExceptionUtil
-        DaoExceptionUtil.handleJdbcOperation(() -> {
-            jdbcTemplate.update("DELETE FROM MemoryContribution WHERE contribution_id = ?", id);
-            return null; // Null is necessary for void methods
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
+            String sql = "DELETE FROM MemoryContribution WHERE contribution_id = ?";
+            return jdbcTemplate.update(sql, id) > 0;
         });
     }
 

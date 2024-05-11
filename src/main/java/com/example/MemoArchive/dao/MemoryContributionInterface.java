@@ -54,7 +54,7 @@ public interface MemoryContributionInterface {
      *
      * @param id the ID of the MemoryContribution to delete
      */
-    void deleteContributionById(int id);
+    boolean deleteContributionById(int id);
 
     /**
      * Retrieves all MemoryContributions from the database.
