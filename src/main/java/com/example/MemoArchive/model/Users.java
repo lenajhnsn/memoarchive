@@ -1,5 +1,6 @@
 package com.example.MemoArchive.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class Users {
     @Size(min = 5, max = 50, message = "Email address must be between 5 and 50 characters.")
     private String email;
 
+    @JsonIgnore
     @NotBlank(message = "Password is mandatory.")
     @Size(min = 2, max = 50, message = "Password must be between 2 and 50 characters.")
     private String password;

@@ -92,8 +92,7 @@ public class MemoryContributionController {
 
     private  void auditLog(String operation, int memoryId, String username) {
         System.out.println(
-                "User: " + username + "performed the operation: " + operation + " on memory contribution: " +
-        );
+                "User: " + username + "performed the operation: " + operation + " on memory contribution: " + memoryId);
 
 
     }
