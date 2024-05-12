@@ -1,0 +1,127 @@
+CREATE / ADD METHODS (used for Users/Memory/Tag classes)
+
+        /**
+         * Adds a new user/memory/tag into the database.
+         *
+         * @param entity (this will either be user, memory, or tag; entity is generic)
+         * @return boolean: true indicates the data was successfully added, false indicates a failure
+         */
+
+        boolean add(T entity); // Adds a new entity to the database and returns true if it was successful
+
+            -- USER TABLE TESTS --
+            1. Successful insertion of valid data
+            2. Insert null or invalid data/object
+                a. All fields (first name, last name, email, password, and account creation date) cannot be null
+                b. First name, last name, and password cannot exceed 25 characters
+                c. Email cannot be duplicated, must be unique
+
+
+            -- MEMORY TABLE TESTS --
+            1. Successful insertion of valid data
+            2. Insert null or invalid data/object
+                a. Four fields (type, content, memory date, creation date) cannot be null
+                b. Type cannot exceed 25 characters
+                c. Foreign key is userId so it cannot be null and must be valid
+
+            -- TAG TABLE TESTS --
+            1. Successful insertion of valid data
+            2. Insert null or invalid data/object
+                a. All fields are primary or foreign keys and cannot be null or invalid
+
+
+READ / GET BY ID METHODS (used for Users/Memory/Tag classes)
+        /**
+         * Gets specific user/memory/tag from the database using the relevant ID (i.e., userId, id, and tagId).
+         * Return null if invalid ID. Invalid ID is a user/memory/tag that is not in the database.
+         * @param id
+         * @return the filled out Users/Memory/Tag object
+         */
+        T getById(Integer id); // Retrieves entity by its ID
+
+            -- USER TABLE TESTS --
+            1. Successfully retrieve data by userId
+            2. Try to read a non-existent userID; null should be returned
+
+
+            -- MEMORY TABLE TESTS --
+            1. Successfully retrieve data by id
+            2. Try to read a non-existent id; null should be returned
+
+            -- TAG TABLE TESTS --
+            1. Successfully retrieve data tagId
+            2. Try to read a non-existent tagId; null should be returned
+
+READ / GET ALL METHODS (used for Users/Memory/Tag classes)
+        /**
+         * Get all users/memories/tags from the database
+         * Return null if list is empty.
+         * @return all users/memories/tags as Users/Memory/Tag objects in a List
+         */
+
+        List<T> getAll(); // Gets all entities of a certain type
+
+            -- USER / MEMORY / TAG TABLE TESTS --
+            1. Retrieve all objects on the list successfully.
+                a. Check different sized lists
+            2. Empty list returns null
+
+UPDATE METHODS (used for Users/Memory/Tag classes)
+        /**
+         * Update a user/memory/tag in the database. Only called on users/memories/tags that are already in the database.
+         *
+         * @param entity (this will either be user, memory, or tag; entity is generic)
+         * @return boolean: true indicates the data was successfully updated, false indicates a failure
+         */
+
+        boolean update(T entity); // Updates an existing entity
+
+            -- USER TABLE TESTS --
+            1. Successful update of an existing user
+            2. Try to update a non-existent user
+            3. Try to update with invalid data
+                a. All fields (first name, last name, email, password, and account creation date) cannot be null
+                b. First name, last name, and password cannot exceed 25 characters
+                c. Email cannot be duplicated, must be unique
+
+            -- MEMORY TABLE TESTS --
+            1. Successful update of an existing memory
+            2. Try to update a non-existent memory
+            3. Try to update with invalid data
+                a. Four fields (type, content, memory date, creation date) cannot be null
+                b. Type cannot exceed 25 characters
+                c. Foreign key is userId so it cannot be null and must be valid
+
+            -- TAG TABLE TESTS --
+            1. Successful update of an existing tag
+            2. Try to update a non-existent tag
+            3. Try to update with invalid data
+                a. All fields are primary or foreign keys and cannot be null or invalid
+
+DELETE METHODS (used for Users/Memory/Tag classes)
+        /**
+         * Removes a specific user/memory/tag from the database using the relevant ID (i.e., userId, id, and tagId).
+         *
+         * @param id
+         * @return boolean: true indicates the data was successfully deleted, false indicates a failure
+         */
+        boolean delete(Integer id); // Deletes an entity from the database based on its ID
+
+            -- USER TABLE TESTS --
+            1. Successful delete of an existing user
+            2. Try to delete a non-existent user
+            3. Verify that cascading deletes are successful
+                a. When a user is deleted, all related memories and tags should be as well
+
+            -- MEMORY TABLE TESTS --
+            1. Successful delete of an existing memory
+            2. Try to delete a non-existent memory
+            3. Verify that cascading deletes are successful
+                a. When a user is deleted, all related memories should be as well
+
+            -- TAG TABLE TESTS --
+            1. Successful delete of an existing tag
+            2. Try to delete a non-existent tag
+            3. Verify that cascading deletes are successful
+                a. When a user is deleted, all related tags should be as well
+                a. When a memory is deleted, all related tags should be as well
