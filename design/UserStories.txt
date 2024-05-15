@@ -1,0 +1,21 @@
+USER STORIES:
+
+1. As a user, I want to create a new account so that I can start building my own timeline of memories.
+
+2. As a user, I want to add photos, stories, and voice memos to my timeline memories to capture the essence of each moment.
+
+3. As a user, I want to invite friends and family to contribute their own memories to my timeline, allowing us to collectively reminisce and share in our past experiences.
+
+4. As a user, I want to search for specific memories by date, tags, or contributors, making it easier to find and relive memories.
+
+5. As a user, I want to customize my timeline by selecting which memories to include, ensuring that it highlights my personal favorites.
+
+6. As a user, I want to control the privacy settings of my timeline, deciding who can contribute to it and who can view it, maintaining the privacy of my memories.
+
+7. As a user, I want the option to print my digital timeline into a beautifully crafted book, allowing me to have a tangible keepsake of my memories.
+
+8. As a user, I want to update my memories by editing or adding new content to them, ensuring that my timeline remains up-to-date and comprehensive.
+
+9. As a user, I want to delete memories that are no longer relevant or that I no longer wish to include in my timeline, keeping it organized and clutter-free.
+
+10. As a user, I want my memories to be secure and protected with advanced security measures, ensuring that they remain safe and inaccessible to unauthorized users.
