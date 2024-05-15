@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS users, memory, tag, voicememo, memorycontribution, permissi
 DROP SEQUENCE IF EXISTS seq_user_id, seq_memory_id, seq_tag_id, seq_voice_memo_id, seq_permission_id, seq_contribution_id;
 
 
-CREATE SEQUENCE seq_user_id
+CREATE SEQUENCE seq_user_id --Starts sequencing after row 1000, the mock data--
   INCREMENT BY 1
   START WITH 1001
   NO MAXVALUE;
@@ -16,7 +16,6 @@ email VARCHAR(50) UNIQUE NOT NULL,
 password VARCHAR(200) NOT NULL,
 username VARCHAR(25) NOT NULL,
 account_creation_date DATE NOT NULL);
-
 
 
 -- Create Memory Table
