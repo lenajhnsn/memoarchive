@@ -1,7 +1,15 @@
 package com.example.MemoArchive.model.dto;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints .*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * RegisterUserDto is a class used to hold the registration information for a new user
@@ -10,98 +18,34 @@ import jakarta.validation.constraints.Pattern;
  * The acronym DTO is being used for "data transfer object". It means that this type of
  * class is specifically created to transfer data between the client and the server.
  */
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RegisterUserDto {
 
-    @NotEmpty
-    private String username;
-    @NotEmpty
-    private String password;
-    @NotEmpty
-    private String confirmPassword;
-    @NotEmpty
-    private String name;
-    private String address;
-    private String city;
-    @NotEmpty
-    @Pattern(regexp = "^(AL|AK|AR|AZ|CA|CO|CT|DC|DE|FL|GA|HI|IA|ID|IL|IN|KS|KY|LA|MA|MD|ME|MI|MN|MO|MS|MT|NC|ND|NE|NH|NJ|NM|NV|NY|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VA|VT|WA|WI|WV|WY)$",
-            message = "State code is invalid")
-    private String stateCode;
-    @NotEmpty
-    @Pattern(regexp = "^[0-9][0-9][0-9][0-9][0-9]$",
-            message = "ZIP must be 5 digits")
-    private String ZIP;
-    @NotEmpty(message = "Please select a role for this user.")
-    private String role;
+        @NotBlank(message = "First name is mandatory.")
+        @Size(min = 2, max = 50, message = "First name must be between 2 and 50 characters.")
+        private String firstName;
 
-    public String getUsername() {
-        return username;
-    }
+        @NotBlank(message = "Last name is mandatory.")
+        @Size(min = 2, max = 50, message = "Last name must be between 2 and 50 characters.")
+        private String lastName;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+        @NotBlank(message = "Email address is mandatory.")
+        @Size(min = 5, max = 50, message = "Email address must be between 5 and 50 characters.")
+        private String email;
 
-    public String getPassword() {
-        return password;
-    }
+        @NotBlank(message = "Password is mandatory.")
+        @Size(min = 2, max = 50, message = "Password must be between 2 and 50 characters.")
+        private String password;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+        @NotBlank(message = "Username is mandatory.")
+        @Size(min = 2, max = 25, message = "Username must be between 2 and 25 characters.")
+        private String username;
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
+// Getters, setters, and constructors (no arg and all arg) are created with Lombok.
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getStateCode() {
-        return stateCode;
-    }
-
-    public void setStateCode(String stateCode) {
-        this.stateCode = stateCode;
-    }
-
-    public String getZIP() {
-        return ZIP;
-    }
-
-    public void setZIP(String ZIP) {
-        this.ZIP = ZIP;
-    }
 }

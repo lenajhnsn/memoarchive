@@ -1,5 +1,6 @@
 package com.example.MemoArchive.model.dto;
 
+import com.example.MemoArchive.model.Users;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -12,11 +13,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class LoginResponseDto {
 
     private String token;
-    private User user;
 
-    public LoginResponseDto(String token, User user) {
+    public LoginResponseDto(String token) {
         this.token = token;
-        this.user = user;
     }
 
     @JsonProperty("token")
@@ -26,14 +25,5 @@ public class LoginResponseDto {
 
     void setToken(String token) {
         this.token = token;
-    }
-
-    @JsonProperty("user")
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

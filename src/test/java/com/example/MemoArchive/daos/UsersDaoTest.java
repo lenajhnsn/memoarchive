@@ -4,9 +4,7 @@ import com.example.MemoArchive.dao.UsersDao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class UsersDAOTest extends BaseDaoTests {
+class UsersDaoTest extends BaseDaoTests {
 //TODO: Do I need the method names to match those in the DAOs exactly?
     private UsersDao dao;
 

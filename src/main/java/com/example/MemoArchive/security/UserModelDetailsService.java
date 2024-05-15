@@ -1,8 +1,8 @@
 package com.example.MemoArchive.security;
 
-import com.techelevator.dao.UserDao;
-import com.techelevator.model.Authority;
-import com.techelevator.model.User;
+import com.example.MemoArchive.dao.UsersDao;
+import com.example.MemoArchive.model.Authority;
+import com.example.MemoArchive.model.Users;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,9 +23,9 @@ public class UserModelDetailsService implements UserDetailsService {
 
     private final Logger log = LoggerFactory.getLogger(UserModelDetailsService.class);
 
-    private final UserDao userDao;
+    private final UsersDao userDao;
 
-    public UserModelDetailsService(UserDao userDao) {
+    public UserModelDetailsService(UsersDao userDao) {
         this.userDao = userDao;
     }
 
@@ -35,7 +35,7 @@ public class UserModelDetailsService implements UserDetailsService {
         return createSpringSecurityUser(login, userDao.getUserByUsername(login));
     }
 
-    private org.springframework.security.core.userdetails.User createSpringSecurityUser(String login, User user) {
+    private org.springframework.security.core.userdetails.User createSpringSecurityUser(String login, Users user) {
         if (!user.isActivated()) {
             throw new UserNotActivatedException("User " + login + " was not activated");
         }

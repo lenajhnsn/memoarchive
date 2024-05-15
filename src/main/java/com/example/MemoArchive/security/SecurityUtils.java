@@ -24,7 +24,7 @@ public class SecurityUtils {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null) {
-            LOG.debug("no authentication in com.techelevator.security context found");
+            LOG.debug("no authentication in com.example.MemoArchive.security context found");
             return Optional.empty();
         }
 
@@ -36,7 +36,7 @@ public class SecurityUtils {
             username = (String) authentication.getPrincipal();
         }
 
-        LOG.debug("found username '{}' in com.techelevator.security context", username);
+        LOG.debug("found username '{}' in com.example.MemoArchive.security context", username);
 
         return Optional.ofNullable(username);
     }

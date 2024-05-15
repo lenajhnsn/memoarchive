@@ -4,9 +4,7 @@ import com.example.MemoArchive.dao.MemoryDao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class MemoryDAOTest extends BaseDaoTests {
+class MemoryDaoTest extends BaseDaoTests {
 //TODO: add a testing DB to the test-data.sql file
 
     private MemoryDao dao;

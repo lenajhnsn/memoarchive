@@ -16,7 +16,7 @@ import java.util.List;
 //TODO: Add Principal principal functionality and logging
 
 @RestController // Includes @Controller functions
-@RequestMapping("/memory/") // Set base path for controller
+@RequestMapping("/memory") // Set base path for controller
 @PreAuthorize("isAuthenticated()")
 public class MemoryController {
 

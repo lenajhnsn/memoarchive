@@ -7,6 +7,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import javax.sql.DataSource;
@@ -15,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@Component
 public class UsersDao implements UsersInterface {
     // INSTANCE VARIABLES
     private JdbcTemplate jdbcTemplate;
@@ -31,8 +33,9 @@ public class UsersDao implements UsersInterface {
     @Override
     public Users addUser(Users user) {
         return DaoExceptionUtil.handleJdbcOperation(() -> {
-            String sql = "INSERT INTO users (first_name, last_name, email, password, account_creation_date) VALUES (?, ?, ?, ?, ?)";
-            jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getAccountCreationDate());
+            String sql = "INSERT INTO users (first_name, last_name, email, password, username, account_creation_date) VALUES (?, ?, ?, ?, ?, ?)";
+            String passwordHash = new BCryptPasswordEncoder().encode(user.getPassword());
+            jdbcTemplate.update(sql, user.getFirstName(), user.getLastName(), user.getEmail(), passwordHash, user.getUsername(), user.getAccountCreationDate());
             return user;
         });
     }
@@ -44,6 +47,17 @@ public class UsersDao implements UsersInterface {
             String sql = "SELECT * FROM users WHERE user_id = ?";
             return jdbcTemplate.queryForObject(sql, this::mapRowToUser, userId);
         });
+    }
+
+    // READ -- GET USER BY USERNAME
+    @Override
+    public Users getUserByUsername(String username) {
+        return DaoExceptionUtil.handleJdbcOperation(() -> {
+            String sql = "SELECT * FROM users WHERE username = ?";
+            return jdbcTemplate.queryForObject(sql, this::mapRowToUser, username);
+        });
+        //TODO: iLike/Wildcard to match username fully
+
     }
 
     // GET LIST OF ALL TAGS
@@ -79,7 +93,7 @@ public class UsersDao implements UsersInterface {
         Users user = new Users();
         user.setUserId(rowSet.getInt("user_id"));
         user.setFirstName(rowSet.getString("first_name"));
-        user.setLastName(rowSet.getNString("last_name"));
+        user.setLastName(rowSet.getString("last_name"));
         user.setEmail(rowSet.getString("email"));
         user.setPassword(rowSet.getString("password"));
         user.setUsername(rowSet.getString("username"));

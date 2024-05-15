@@ -4,7 +4,7 @@ import com.example.MemoArchive.model.Users;
 import java.util.List;
 
 public interface UsersInterface {
-
+//TODO: Add getUserByUsername so Authentication Controller class can work
     /**
      * Adds a new user to the database.
      *
@@ -12,6 +12,8 @@ public interface UsersInterface {
      * @return The added user with potentially updated data (e.g., auto-generated ID).
      */
     Users addUser(Users user);
+
+    Users getUserByUsername(String username);
 
     /**
      * Retrieves a user by their user ID.

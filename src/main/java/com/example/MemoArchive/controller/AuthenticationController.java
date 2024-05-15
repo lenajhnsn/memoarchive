@@ -1,5 +1,11 @@
 package com.example.MemoArchive.controller;
 
+import com.example.MemoArchive.dao.UsersDao;
+import com.example.MemoArchive.exception.DaoException;
+import com.example.MemoArchive.model.Users;
+import com.example.MemoArchive.model.dto.LoginDto;
+import com.example.MemoArchive.model.dto.LoginResponseDto;
+import com.example.MemoArchive.model.dto.RegisterUserDto;
 import com.example.MemoArchive.security.jwt.TokenProvider;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -9,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDate;
 
 /**
  * AuthenticationController is a class used for handling requests to authenticate Users.
@@ -23,12 +31,12 @@ public class AuthenticationController {
 
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private UserDao userDao;
+    private UsersDao usersDao;
 
-    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDao userDao) {
+    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UsersDao usersDao) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
-        this.userDao = userDao;
+        this.usersDao = usersDao;
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
@@ -41,8 +49,8 @@ public class AuthenticationController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = tokenProvider.createToken(authentication, false);
 
-            User user = userDao.getUserByUsername(loginDto.getUsername());
-            return new LoginResponseDto(jwt, user);
+            Users user = usersDao.getUserByUsername(loginDto.getUsername());
+            return new LoginResponseDto(jwt);
         }
         catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "DAO error - " + e.getMessage());
@@ -51,11 +59,18 @@ public class AuthenticationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/register", method = RequestMethod.POST)
-    public User register(@Valid @RequestBody RegisterUserDto newUser) {
+    public Users register(@Valid @RequestBody RegisterUserDto newUser) {
         try {
-            User user = userDao.createUser(
-                    new User(newUser.getUsername(),newUser.getPassword(), newUser.getRole(), newUser.getName(), newUser.getAddress(), newUser.getCity(), newUser.getStateCode(), newUser.getZIP())
-            );
+            Users usersObject = new Users();
+            usersObject.setUsername(newUser.getUsername());
+            usersObject.setPassword(newUser.getPassword());
+            usersObject.setAccountCreationDate(LocalDate.now());
+            usersObject.setEmail(newUser.getEmail());
+            usersObject.setFirstName(newUser.getFirstName());
+            usersObject.setLastName(newUser.getLastName());
+
+
+            Users user = usersDao.addUser(usersObject);
             return user;
         }
         catch (DaoException e) {

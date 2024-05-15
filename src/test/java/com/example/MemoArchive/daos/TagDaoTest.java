@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-    class TagDAOTest extends BaseDaoTests {
+    class TagDaoTest extends BaseDaoTests {
         private TagDao dao;
 
         @BeforeEach
