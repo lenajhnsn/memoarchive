@@ -1,7 +1,42 @@
 Endpoint URL	            Method	        Description	                        Success Status Codes	    Error Status Codes	        Authentication Required	        Required Role
+
+/users/{userId}	            GET	            Retrieve a user by their ID	                200 OK	            404 Not Found	                Yes	                            None
+/users/	                    GET	            Retrieve all users	                        200 OK	            None	                        Yes	                            None
+/users/	                    POST	        Create a new user	                        201 Created	        403 Forbidden	                Yes	                            ADMIN
+/users/{userId}	            PUT	            Update an existing user	                    200 OK	            404 Not Found	                Yes	                            ADMIN
+/users/{userId}	            DELETE	        Remove a user by their ID	                204 No Content	    404 Not Found	                Yes	                            ADMIN
+
 /memory/{memoryId}	        GET	            Retrieve a memory by its ID	                200 OK	            404 Not Found	                Yes	                            None
 /memory/by-user/{userId}    GET	            Retrieve all memories of a user by user ID	200 OK	            404 Not Found	                Yes	                            None
 /memory/	                GET	            Retrieve all memories	                    200 OK	            None	                        Yes	                            None
 /memory/	                POST	        Create a new memory	                        201 Created	        403 Forbidden	                Yes	                            ADMIN
 /memory/{memoryId}	        PUT	            Update an existing memory	                200 OK	            403 Forbidden, 404 Not Found    Yes	                            ADMIN
 /memory/{memoryId}	        DELETE	        Remove a memory by its ID	                204 No Content	    403 Forbidden, 404 Not Found	Yes	                            ADMIN
+
+/tag/{tagId}	            GET	            Retrieve a tag by its ID	                200 OK	            404 Not Found	                Yes	                            None
+/tag/by-user/{userId}	    GET	            Retrieve a tag by user ID	                200 OK	            404 Not Found	                Yes	                            None
+/tag/by-memory/{memoryId}	GET	            Retrieve a tag by memory ID	                200 OK	            404 Not Found	                Yes	                            None
+/tag/	                    GET	            Retrieve all tags	                        200 OK	            None	                        Yes	                            None
+/tag/	                    POST	        Create a new tag	                        201 Created	        403 Forbidden	                Yes	                            ADMIN
+/tag/{tagId}	            PUT	            Update an existing tag	                    200 OK	            404 Not Found	                Yes	                            ADMIN
+/tag/{tagId}	            DELETE	        Remove a tag by its ID	                    204 No Content	    404 Not Found	                Yes	                            ADMIN
+
+/voice-memo/{voiceMemoId}	GET	            Retrieve a voice memo by its ID	            200 OK	            404 Not Found	                Yes	                            None
+/voice-memo/	            GET	            Retrieve all voice memos	                200 OK	            None	                        Yes	                            None
+/voice-memo/	            POST	        Create a new voice memo	                    201 Created	        403 Forbidden	                Yes	                            ADMIN
+/voice-memo/{voiceMemoId}	PUT	            Update an existing voice memo	            200 OK	            404 Not Found	                Yes	                            ADMIN
+/voice-memo/{voiceMemoId}	DELETE	        Remove a voice memo by its ID	            204 No Content	    404 Not Found	                Yes	                            ADMIN
+
+/memorycontribution/{id}	GET	            Retrieve a memory contribution by its ID	200 OK	            404 Not Found	                Yes	                            None
+/memorycontribution/by-memory/{memoryId}GET Retrieve contributions by memory ID	        200 OK	            None	                        Yes	                            None
+/memorycontribution/by-contributor/{contributorId}	GET	Retrieve contributions by contributor ID	200 OK	None	                        Yes	                            None
+/memorycontribution/	    POST	        Create a new memory contribution	        201 Created	        403 Forbidden	                Yes	                            ADMIN
+/memorycontribution/{id}	PUT	            Update an existing memory contribution	    200 OK              404 Not Found	            	Yes	                            ADMIN
+/memorycontribution/{id}	DELETE	        Remove a memory contribution by its ID	    204 No Content	    404 Not Found	                Yes                             ADMIN
+
+/permission/{permissionId}	GET	            Retrieve a permission by its ID	            200 OK	            404 Not Found	                Yes	                            None
+/permission/by-owner/{ownerUserId}	GET	    Retrieve permissions by owner ID	        200 OK	            None	                        Yes	                            None
+/permission/by-contributor/{contributorUserId} GET Retrieve permissions by contributor ID 200 OK	        None	                        Yes	                            None
+/permission/	            POST	        Create a new permission	                    201 Created	        403 Forbidden	                Yes	                            ADMIN
+/permission/{permissionId}	PUT	            Update an existing permission	            200 OK              404 Not Found		            Yes	                            ADMIN
+/permission/{permissionId}	DELETE	        Remove a permission by its ID	            204 No Content	    404 Not Found	                Yes	                            ADMIN
