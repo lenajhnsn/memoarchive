@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 //TODO: Add Principal principal functionality and logging
 
@@ -29,7 +30,7 @@ public class MemoryController {
 
     // GET BY MEMORY ID (primary key)
     @GetMapping("/{memoryId}")
-    public Memory getMemoryByMemoryId(@PathVariable("memoryId") int memoryId) {
+    public Memory getMemoryByMemoryId(@PathVariable("memoryId") int memoryId, Principal principal) {
         try {
             return memoryDao.getMemoryByMemoryId(memoryId);
         } catch (Exception e) {
@@ -39,9 +40,9 @@ public class MemoryController {
 
     // GET BY USER ID (foreign key)
     @GetMapping("/by-user/{userId}")
-    public Memory getMemoriesByUserId(@PathVariable("userId") int userId) {
+    public List<Memory> getMemoriesByUserId(@PathVariable("userId") int userId, Principal principal) {
         try {
-            return memoryDao.getMemoryByUserId(userId); //
+            return memoryDao.getMemoriesByUsername(userId); //
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Memory not found.");
         }
@@ -49,6 +50,7 @@ public class MemoryController {
 
     // GET ALL MEMORIES
     @GetMapping("/")
+    @PreAuthorize("hasRole('ADMIN')") // Only administrators can access all memories for all users
     public List<Memory> getAllMemories() {
         return memoryDao.getAllMemories();
     }
@@ -62,8 +64,7 @@ public class MemoryController {
 
     // PUT - Update an existing memory
     @PutMapping("/{memoryId}")
- //TODO add CREATOR and admin
-    public boolean updateMemory(@Valid @PathVariable("memoryId") int memoryId, @RequestBody Memory memory) {
+    public boolean updateMemory(@Valid @PathVariable("memoryId") int memoryId, @RequestBody Memory memory, Principal principal) {
         memory.setMemoryId(memoryId); // Set memory ID just in case it's not set in the request body
         return memoryDao.updateMemory(memory);
     }
@@ -71,8 +72,7 @@ public class MemoryController {
     // DELETE - Remove a memory by ID
     @DeleteMapping("/{memoryId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ADMIN')")
-    public boolean deleteMemory(@PathVariable("memoryId") int memoryId) {
+    public boolean deleteMemory(@PathVariable("memoryId") int memoryId, Principal principal) {
         return memoryDao.deleteMemory(memoryId);
     }
 }

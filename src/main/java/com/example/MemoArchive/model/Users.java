@@ -1,5 +1,6 @@
 package com.example.MemoArchive.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -43,7 +44,7 @@ public class Users {
 
  //TODO: Make sure the not null is removed from SQL database code and other parts of classes
     @JsonIgnore // Not mandatory for post/put
-    @PastOrPresent(message = "Account creation date must be in the past or today.")
+    @JsonFormat(pattern = "MM/dd/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate accountCreationDate;
 
     @JsonIgnore

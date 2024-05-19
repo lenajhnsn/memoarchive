@@ -21,6 +21,7 @@ public class Memory {
     private String description;
     @JsonFormat(pattern = "MM/dd/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate memoryDate;
+    @JsonFormat(pattern = "MM/dd/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate creationDate;
 
     // Getters, setters, and constructors (no arg and all arg) are created with Lombok.

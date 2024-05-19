@@ -28,7 +28,7 @@ public class MemoryContributionController {
 
     // GET BY CONTRIBUTION ID (primary key)
     @GetMapping("/{id}")
-    public MemoryContribution getMemoryContributionById(@PathVariable("id") int id) {
+    public MemoryContribution getMemoryContributionById(@PathVariable("id") int id, Principal principal) {
         try {
             return memoryContributionDao.getContributionByContributionId(id);
         } catch (Exception e) {
@@ -38,20 +38,19 @@ public class MemoryContributionController {
 
     // GET CONTRIBUTIONS BY MEMORY ID (foreign key)
     @GetMapping("/by-memory/{memoryId}")
-    public List<MemoryContribution> getContributionsByMemoryId(@PathVariable("memoryId") int memoryId) {
+    public List<MemoryContribution> getContributionsByMemoryId(@PathVariable("memoryId") int memoryId, Principal principal) {
         return memoryContributionDao.getContributionByMemoryId(memoryId);
     }
 
     // GET CONTRIBUTIONS BY CONTRIBUTOR ID (foreign key)
     @GetMapping("/by-contributor/{contributorId}")
-    public List<MemoryContribution> getContributionsByContributorId(@PathVariable("contributorId") int contributorId) {
+    public List<MemoryContribution> getContributionsByContributorId(@PathVariable("contributorId") int contributorId, Principal principal) {
         return memoryContributionDao.getContributionByContributorId(contributorId);
     }
 
     // POST - Create a new memory contribution
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ADMIN')")
     public MemoryContribution createMemoryContribution(@Valid @RequestBody MemoryContribution contribution, Principal principal) {
         // Log the user performing the request
         System.out.println("Request by: " + principal.getName());
@@ -61,7 +60,6 @@ public class MemoryContributionController {
 
     // PUT - Update an existing memory contribution
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<MemoryContribution> updateMemoryContribution(@Valid @PathVariable("id") int id, @RequestBody MemoryContribution contribution, Principal principal) {
         // Log the user performing the request
         System.out.println("Accessed by: " + principal);
@@ -77,23 +75,9 @@ public class MemoryContributionController {
     // DELETE - Remove a memory contribution by ID
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasRole('ADMIN')")
     public void deleteMemoryContribution(@PathVariable("id") int id, Principal principal) { //TODO: Create logic that checks that the principals' id matches id and refernec that method here and add service class object at top instance variables
-        auditLog("delete", id, principal.getName()); //TODO: get rid of log
         memoryContributionDao.deleteContributionById(id);
     }
 
-    // TODO: Get clarity on the inclusion of Principal for each controller class + use cases
-/*
-    This is part of Daniel's instructor code but I'm not sure how to implement it and whether or not
-    it needs to be part of every controller class or only some.
-
- */
-
-    private  void auditLog(String operation, int memoryId, String username) {
-        System.out.println(
-                "User: " + username + "performed the operation: " + operation + " on memory contribution: " + memoryId);
-
-
     }
-}
+

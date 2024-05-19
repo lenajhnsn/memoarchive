@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 
 import javax.sql.DataSource;
+import java.security.Principal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -26,7 +27,7 @@ public class MemoryDao implements MemoryInterface {
 
     // CREATE
     @Override
-    public Memory addMemory(Memory memory) {
+    public Memory addMemory(Memory memory, Principal principal) {
         /*
         Use the DaoExceptionUtil to handle any exceptions during the JDBC operation.
         A lambda expression is passed to the handleJdbcOperation method.
@@ -43,7 +44,7 @@ public class MemoryDao implements MemoryInterface {
 
     // READ -- GET MEMORY BY MEMORY ID
     @Override
-    public Memory getMemoryByMemoryId(int memoryId) {
+    public Memory getMemoryByMemoryId(int memoryId, Principal principal) {
         try { // Start try block to catch any exceptions
             return jdbcTemplate.queryForObject("SELECT * FROM memory WHERE memory_id = ?", this::mapRowtoMemory, memoryId);
         } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
@@ -51,11 +52,11 @@ public class MemoryDao implements MemoryInterface {
         }
     }
 
-    // READ -- GET MEMORY BY USER ID
+    // READ -- GET MEMORIES BY USERNAME
     @Override
-    public Memory getMemoryByUserId(int userId) {
+    public List<Memory> getMemoriesByUsername(String username, Principal principal) {
         try { // Start try block to catch any exceptions
-            return jdbcTemplate.queryForObject("SELECT * FROM memory WHERE user_id = ?", this::mapRowtoMemory, userId);
+            return jdbcTemplate.query("SELECT * FROM memory WHERE user_id = ?", this::mapRowtoMemory, username);
         } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
             throw new DaoException("Unable to connect to server or database", e);
         }
@@ -69,8 +70,7 @@ public class MemoryDao implements MemoryInterface {
     }
 
     // UPDATE (PUT)
-//TODO: Should I return a boolean here or return the object?
-    public boolean updateMemory(Memory memory) {
+    public boolean updateMemory(Memory memory, Principal principal) {
         // Run update operation using exception handling provided by DaoExceptionUtil.
         return DaoExceptionUtil.handleJdbcOperation(() -> {
             String sql = "UPDATE memory SET type = ?, content = ?, description = ?, memory_date = ?, creation_date = ? WHERE memory_id = ?";
@@ -81,7 +81,7 @@ public class MemoryDao implements MemoryInterface {
 
     // DELETE
     @Override
-    public boolean deleteMemory(int memoryId) {
+    public boolean deleteMemory(int memoryId, Principal principal) {
         // Handle deletion within DaoExceptionUtil
         return DaoExceptionUtil.handleJdbcOperation(() -> {
             String sql = "DELETE FROM memory WHERE memory_id = ?";
