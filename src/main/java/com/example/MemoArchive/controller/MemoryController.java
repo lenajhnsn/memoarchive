@@ -39,9 +39,9 @@ public class MemoryController {
 
     // GET BY USER ID (foreign key)
     @GetMapping("/by-user/{userId}")
-    public List<Memory> getMemoriesByUserId(@PathVariable("userId") int userId) {
+    public Memory getMemoriesByUserId(@PathVariable("userId") int userId) {
         try {
-            return memoryDao.getAllMemories(); //
+            return memoryDao.getMemoryByUserId(userId); //
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Memory not found.");
         }
@@ -54,16 +54,15 @@ public class MemoryController {
     }
 
     // POST - Create a new memory
-    @PostMapping("/")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ADMIN')")
     public Memory createMemory(@Valid @RequestBody Memory memory) {
         return memoryDao.addMemory(memory);
     }
 
     // PUT - Update an existing memory
     @PutMapping("/{memoryId}")
-    @PreAuthorize("hasRole('ADMIN')")
+ //TODO add CREATOR and admin
     public boolean updateMemory(@Valid @PathVariable("memoryId") int memoryId, @RequestBody Memory memory) {
         memory.setMemoryId(memoryId); // Set memory ID just in case it's not set in the request body
         return memoryDao.updateMemory(memory);

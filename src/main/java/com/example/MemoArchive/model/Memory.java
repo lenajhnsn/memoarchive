@@ -1,5 +1,6 @@
 package com.example.MemoArchive.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class Memory {
     private String type;
     private String content;
     private String description;
+    @JsonFormat(pattern = "MM/dd/yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate memoryDate;
     private LocalDate creationDate;
 

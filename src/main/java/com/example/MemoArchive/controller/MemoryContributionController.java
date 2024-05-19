@@ -78,8 +78,8 @@ public class MemoryContributionController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ADMIN')")
-    public void deleteMemoryContribution(@PathVariable("id") int id, Principal principal) {
-        auditLog("delete", id, principal.getName());
+    public void deleteMemoryContribution(@PathVariable("id") int id, Principal principal) { //TODO: Create logic that checks that the principals' id matches id and refernec that method here and add service class object at top instance variables
+        auditLog("delete", id, principal.getName()); //TODO: get rid of log
         memoryContributionDao.deleteContributionById(id);
     }
 

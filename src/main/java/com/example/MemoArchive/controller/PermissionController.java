@@ -17,7 +17,7 @@ import java.util.List;
 @PreAuthorize("isAuthenticated()")
 public class PermissionController {
 
-    private PermissionDao permissionDao;
+    private PermissionDao permissionDao; //TODO: Add instance variable that references a service interface (referencing service class), replace return with memoryServices.method within method
 
     public PermissionController(PermissionDao permissionDao) {
         this.permissionDao = permissionDao;
