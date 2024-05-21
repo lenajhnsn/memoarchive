@@ -5,6 +5,7 @@ import com.example.MemoArchive.model.MemoryContribution;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +14,7 @@ import java.security.Principal;
 import java.util.List;
 //TODO: Learn about how to add logging functionality for future logs/debugging
 
+@Component
 @RestController // Includes added functionality in addition to that provided by @Controller
 @RequestMapping("/memorycontribution") // Set base path for the controller
 @PreAuthorize("isAuthenticated()")

@@ -10,6 +10,7 @@ import com.example.MemoArchive.security.SecurityUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
 import java.security.Principal;
@@ -20,7 +21,7 @@ import java.util.Optional;
  * MemoryService is an implementation of the MemoryService interface.
  * It provides business logic for managing memories.
  */
-
+@Service
 public class MemoryService implements MemoryServiceInterface {
 
     // INSTANCE VARIABLES
