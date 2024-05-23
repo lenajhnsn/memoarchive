@@ -2,6 +2,7 @@ package com.example.MemoArchive.controller;
 
 import com.example.MemoArchive.dao.MemoryDao;
 import com.example.MemoArchive.model.Memory;
+import com.example.MemoArchive.model.dto.MemoryUpdateDto;
 import com.example.MemoArchive.service.MemoryService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -45,10 +46,10 @@ public class MemoryController {
     }
 
     // GET BY USER ID (foreign key)
-    @GetMapping("/by-user/{userId}")
-    public List<Memory> getMemoriesByUsername(@PathVariable("username") String username, Principal principal) {
+    @GetMapping("")
+    public List<Memory> getMemoriesByUsername(Principal principal) {
         try {
-            return memoryService.getMemoriesByUsername(username, principal); //
+            return memoryService.getMemoriesByUsername(principal); //
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Memory not found.");
         }
@@ -70,9 +71,8 @@ public class MemoryController {
 
     // PUT - Update an existing memory
     @PutMapping("/{memoryId}")
-    public ResponseEntity<?> updateMemory(@Valid @PathVariable("memoryId") int memoryId, @RequestBody Memory memory, Principal principal) {
-        memory.setMemoryId(memoryId); // Set memory ID just in case it's not set in the request body
-        return memoryService.updateMemory(memoryId, memory, principal);
+    public ResponseEntity<?> updateMemory(@Valid @PathVariable("memoryId") int memoryId, @RequestBody MemoryUpdateDto memoryUpdateDto, Principal principal) {
+        return memoryService.updateMemory(memoryId, memoryUpdateDto, principal);
     }
 
     // DELETE - Remove a memory by ID

@@ -52,11 +52,11 @@ public class MemoryDao implements MemoryInterface {
         }
     }
 
-    // READ -- GET MEMORIES BY USERNAME
+    // READ -- GET MEMORIES BY USER ID
     @Override
-    public List<Memory> getMemoriesByUsername(String username, Principal principal) {
+    public List<Memory> getMemoriesByUserId(int userId) {
         try { // Start try block to catch any exceptions
-            return jdbcTemplate.query("SELECT * FROM memory WHERE user_id = ?", this::mapRowtoMemory, username);
+            return jdbcTemplate.query("SELECT * FROM memory WHERE user_id = ?", this::mapRowtoMemory, userId);
         } catch (CannotGetJdbcConnectionException e) { // JDBC connection failed
             throw new DaoException("Unable to connect to server or database", e);
         }
@@ -73,8 +73,8 @@ public class MemoryDao implements MemoryInterface {
     public boolean updateMemory(Memory memory, Principal principal) {
         // Run update operation using exception handling provided by DaoExceptionUtil.
         return DaoExceptionUtil.handleJdbcOperation(() -> {
-            String sql = "UPDATE memory SET type = ?, content = ?, description = ?, memory_date = ?, creation_date = ? WHERE memory_id = ?";
-            int rowsAffected = jdbcTemplate.update(sql, memory.getType(), memory.getContent(), memory.getDescription(), memory.getMemoryDate(), memory.getCreationDate(), memory.getMemoryId());
+            String sql = "UPDATE memory SET type = ?, content = ?, description = ?, memory_date = ? WHERE memory_id = ?";
+            int rowsAffected = jdbcTemplate.update(sql, memory.getType(), memory.getContent(), memory.getDescription(), memory.getMemoryDate(), memory.getMemoryId());
             return rowsAffected > 0;
         });
     }

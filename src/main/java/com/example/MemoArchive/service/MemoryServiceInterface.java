@@ -1,6 +1,7 @@
 package com.example.MemoArchive.service;
 
 import com.example.MemoArchive.model.Memory;
+import com.example.MemoArchive.model.dto.MemoryUpdateDto;
 import org.springframework.http.ResponseEntity;
 
 import java.security.Principal;
@@ -34,10 +35,10 @@ public interface MemoryServiceInterface {
     /**
      * Retrieves all memories for a specific user.
      *
-     * @param userId the ID of the user who is retrieving memories
+     * @param principal the ID of the user who is retrieving memories
      * @return a list of memories for the specified user
      */
-    List<Memory> getMemoriesByUsername(String userId, Principal principal);
+    List<Memory> getMemoriesByUsername(Principal principal);
 
     /**
      * Retrieves all memories.
@@ -51,10 +52,10 @@ public interface MemoryServiceInterface {
      * Updates a memory.
      *
      * @param memoryId the ID of the memory to update
-     * @param memory   the updated memory data
+     * @param memoryUpdateDto   the updated memory data
      * @return a ResponseEntity indicating the result of the update operation
      */
-    ResponseEntity<?> updateMemory(int memoryId, Memory memory, Principal principal);
+    ResponseEntity<?> updateMemory(int memoryId, MemoryUpdateDto memoryUpdateDto, Principal principal);
 
     // DELETE
     /**

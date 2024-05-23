@@ -17,10 +17,10 @@ public interface MemoryInterface {
     /**
      * Finds a Memories by its primary key ID.
      *
-     * @param username the primary key of the Memory to find
+     * @param userId the primary key of the Memory to find
      * @return the found Memories, or null if not found
      */
-    List<Memory> getMemoriesByUsername(String username, Principal principal);
+    List<Memory> getMemoriesByUserId(int userId);
 
 
     /**

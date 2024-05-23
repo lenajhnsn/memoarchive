@@ -15,7 +15,7 @@ last_name VARCHAR(50) NOT NULL,
 email VARCHAR(50) UNIQUE NOT NULL,
 password VARCHAR(200) NOT NULL,
 username VARCHAR(25) NOT NULL,
-account_creation_date DATE DEFAULT CURRENT_DATE NOT NULL);
+account_creation_date DATE DEFAULT CURRENT_DATE);
 
 
 -- Create Memory Table
@@ -31,7 +31,7 @@ type VARCHAR(25) NOT NULL,
 content TEXT NOT NULL,
 description TEXT,
 memory_date DATE NOT NULL,
-creation_date DATE DEFAULT CURRENT_DATE NOT NULL,
+creation_date DATE DEFAULT CURRENT_DATE,
 FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE);
 
 
