@@ -47,7 +47,7 @@ public class MemoryService implements MemoryServiceInterface {
         String username = principal.getName(); // Get the username of the authenticated user
         Users user = usersDao.getUserByUsername(username); // Retrieve the user
 
-        // Assuming you want to link the new memory to the current user
+        // Link the new memory to the current user
         if (user != null) {
             memory.setUserId(user.getUserId()); // Set the user ID of the memory to the current user's ID
             memory.setCreationDate(LocalDate.now());

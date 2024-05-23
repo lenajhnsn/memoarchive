@@ -11,7 +11,7 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-//TODO: Figure out where to add the @Hidden annotiation to omit documentation for one or more endpoints in controller classes
+//TODO: Figure out where to add the @Hidden annotation to omit documentation for one or more endpoints in controller classes
 @Configuration
 public class ApiDocConfig {
     /*
@@ -37,7 +37,7 @@ public class ApiDocConfig {
 
             return new OpenAPI()
                     .info(new Info().title(apiTitle)
-                            .description("REST API for the Solar System Geek Corporation™")
+                            .description("REST API for MemoArchive")
                             .version("v0.0.1")
                             .license(new License().name("Apache 2.0").url("http://springdoc.org")))
                     .components( new Components().addSecuritySchemes(securitySchemeName, securityScheme))
