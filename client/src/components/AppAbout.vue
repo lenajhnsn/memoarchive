@@ -1,10 +1,10 @@
 <template>
-    <section id="about-section">    
+    <section id="about-section">
         <h2>About Memo Archive</h2>
-            <p>At Memo Archive, we believe in the power of memories. Our mission is to provide you with a digital archive 
-                where you can preserve, cherish, and share life's precious moments. Founded on the principle of connecting 
-                generations through storytelling, Memo Archive simplifies the process of storing and memories. 
-                With intuitive tools, you can craft a unique timeline and invite others to contribute, 
+            <p>At Memo Archive, we believe in the power of memories. Our mission is to provide you with a digital archive
+                where you can preserve, cherish, and share life's precious moments. Founded on the principle of connecting
+                generations through storytelling, Memo Archive simplifies the process of storing and memories.
+                With intuitive tools, you can craft a unique timeline and invite others to contribute,
                 making reminiscing a shared experience.</p>
             <p>Relive the magic moments of your life with Memo Archive.</p>
     </section>
@@ -12,23 +12,11 @@
 
 <script>
     export default {
- 
+
     }
 </script>
 
 <style scoped>
-
-/* Import Poppins font from Google Fonts */
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'); */
-
-/* Apply Playfair Display font to the entire document */
-body {
-  font-family: 'Playfair Display', serif;
-  margin: 10px;
-  padding: 0;
-  background-color: #EBE7D9; /* Light beige background color */
-  color: #101D24; /* Dark gray/blue text color */
-}
 
 h2 {
   font-family: 'Playfair Display', serif;

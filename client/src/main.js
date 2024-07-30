@@ -1,3 +1,5 @@
+import './assets/main.css'
+
 // TODO: Figure out set up and imports for this page
 import { createApp } from 'vue'
 import MyApp from './App.vue'
