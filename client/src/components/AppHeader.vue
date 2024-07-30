@@ -2,7 +2,7 @@
     <header>
         <div class="logo">
             <!-- Router link for logo, redirects to home page -->
-            <router-link to="/"><img src="assets/MA.png" alt="Logo"></router-link>
+            <router-link to="/"><img src="src/assets/MA.png" alt="Logo"></router-link>
         </div>
     <nav>
         <ul>
