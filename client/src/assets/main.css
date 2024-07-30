@@ -2,11 +2,6 @@
 
 /* Add global project styles here */
 
-* {
-  font-size: 16px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 /* Apply Playfair Display font to the entire document */
 body {
   font-family: 'Playfair Display', serif;
