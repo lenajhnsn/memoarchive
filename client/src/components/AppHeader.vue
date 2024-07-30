@@ -2,7 +2,7 @@
     <header>
         <div class="logo">
             <!-- Router link for logo, redirects to home page -->
-            <router-link to="/">img src="assets/MA.png" alt="Logo"></router-link>
+            <router-link to="/"><img src="assets/MA.png" alt="Logo"></router-link>
         </div>
     <nav>
         <ul>
@@ -23,9 +23,6 @@
 </script>
 
 <style scoped>
-/* Header-related styling: imports for Poppins and Playfair Display fonts */
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap'); */
 
 header {
   position: fixed;

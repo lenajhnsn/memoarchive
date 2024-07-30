@@ -11,11 +11,11 @@
         <router-link v-bind:to="{ name: 'login' }" v-else>Login</router-link>
     </nav>
   </template>
-  
+
   <script>
   import AppHeader from './components/AppHeader.vue';
   import AppFooter from './components/AppFooter.vue';
-  
+
   export default {
     name: 'App',
     components: {
@@ -24,10 +24,7 @@
     }
   }
   </script>
-  
+
   <style>
-  /* Include global styling here */
-  @import './assets/styles.css';
-  
+
   </style>
-  
