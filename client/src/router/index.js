@@ -7,7 +7,7 @@ import HowItWorksView from '../views/HowItWorksView.vue';
 import DashboardView from '../views/DashboardView.vue';
 import LoginView from '../views/LoginView.vue';
 import SignUpView from '../views/SignUpView.vue';
-import EditMemoriesView from '../views/EditMemoriesView.vue';
+import ProfileView from '../views/ProfileView.vue';
 import HomePageView from '../views/HomePageView.vue';
 
 /**
@@ -69,8 +69,8 @@ const routes = [
     },
     {
         path: '/memories',
-        name: 'edit-memories',
-        component: EditMemoriesView,
+        name: 'profile',
+        component: ProfileView,
         meta:{
             requiresAuth: true
         }
