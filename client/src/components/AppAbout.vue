@@ -24,6 +24,9 @@ h2 {
 }
 
 #about-section {
+  margin-top: 110px;
+  margin-left: 10px;
+  margin-right: 10px;
   max-width: 100%;
   font-family: 'Poppins', sans-serif;
   position: relative;

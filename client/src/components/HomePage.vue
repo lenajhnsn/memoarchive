@@ -12,33 +12,33 @@
   
         <section id="about-section">
           <h2>About Memo Archive</h2>
-          <p>At Memo Archive, we believe in the power of memories...</p>
-        </section>
+          <p>At Memo Archive, we believe in the power of memories. Our mission is to provide you with a digital archive
+                where you can preserve, cherish, and share life's precious moments. Founded on the principle of connecting
+                generations through storytelling, Memo Archive simplifies the process of storing and memories.
+                With intuitive tools, you can craft a unique timeline and invite others to contribute,
+                making reminiscing a shared experience.</p>
+            <p>Relive the magic moments of your life with Memo Archive.</p>        </section>
   
         <section id="how-it-works-section">
           <h2>How It Works</h2>
           <div class="steps-container">
             <div class="step">
               <router-link to="/login"><img id="step-1" src="src/img/step1.png" alt="Step 1 Create Account Image" /></router-link>
-              <p>Step 1: Create your account and personalize your profile.</p>
+              <p><span>Step 1: </span> Create your account and personalize your profile.</p>
             </div>
             <div class="step">
               <img id="step-2" src="src/img/step2.png" alt="Step 2 Upload Memory Data Image" />
-              <p>Step 2: Start uploading your photos, videos, and voice memos.</p>
+              <p><span>Step 2: </span>Start uploading your photos, videos, and voice memos.</p>
             </div>
             <div class="step">
               <img id="step-3" src="src/img/step3.png" alt="Step 3 Organize Timeline Image" />
-              <p>Step 3: Organize your memories into timelines and collections.</p>
+              <p><span>Step 3: </span>Organize your memories into timelines and collections.</p>
             </div>
             <div class="step">
               <img id="step-4" src="src/img/step4.png" alt="Step 4 Share Memories Image" />
-              <p>Step 4: Share with friends and family, preserving your legacy for generations.</p>
+              <p><span>Step 4: </span>Share with friends and family, preserving your legacy for generations.</p>
             </div>
           </div>
-        </section>
-  
-        <section id="edit-memories">
-          <router-link to="/edit-memories"><button class="edit-memory-btn">Edit Your Memories</button></router-link>
         </section>
       </main>
       <AppFooter />
@@ -116,6 +116,7 @@
     font-family: 'Playfair Display', serif;
     position: relative;
     overflow: hidden;
+    margin-top: 100px;
   }
   
   #intro img {
@@ -141,6 +142,7 @@
     text-align: center;
     width: 100%;
     max-width: 100%;
+    margin: 10px;
   }
   
   .get-started-btn {
@@ -158,7 +160,7 @@
     font-size: 16px;
     font-weight: bold;
     text-transform: uppercase;
-    z-index: 9;
+    z-index: 6;
   }
   
   .get-started-btn:hover {
@@ -167,6 +169,7 @@
   }
   
   #about-section {
+    margin: 10px;
     margin-top: 100px;
     margin-bottom: 100px;
   }
@@ -181,6 +184,8 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     text-align: center;
+    margin: 10px;
+    margin-bottom: 70px;
   }
   
   .step {
@@ -194,24 +199,10 @@
   .step img {
     max-width: 100%;
   }
-  
-  .edit-memory-btn {
-    background-color: #101D24;
-    color: #EBE7D9;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    display: block;
-    margin: 0 auto;
-    padding: 15px 30px;
-  }
-  
-  .edit-memory-btn:hover {
-    background-color: #101D24;
-    text-decoration: underline;
-  }
+
+  span {
+  text-transform: uppercase;
+  font-weight: bold;
+}
   </style>
   

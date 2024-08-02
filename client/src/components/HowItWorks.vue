@@ -5,20 +5,20 @@
             <div class="step">
                 <!-- Using router-link for navigation -->
                 <router-link to="/signup">
-                <img src="/assets/step1.png" alt="Step 1 Create Account Image">
+                <img src="src/img/step1.png" alt="Step 1 Create Account Image">
                 </router-link>
                 <p><span>Step 1:</span> Create your account and personalize your profile.</p>
             </div>
             <div class="step">
-                <img src="/assets/step2.png" alt="Step 2 Upload Memory Data Image">
+                <img src="src/img/step2.png" alt="Step 2 Upload Memory Data Image">
                 <p><span>Step 2:</span> Start uploading your photos, videos, and voice memos.</p>
             </div>
             <div class="step">
-                <img src="/assets/step3.png" alt="Step 3 Organize Timeline Image">
+                <img src="src/img/step3.png" alt="Step 3 Organize Timeline Image">
                 <p><span>Step 3:</span> Organize your memories into timelines and collections.</p>
             </div>
             <div class="step">
-                <img src="/assets/step4.png" alt="Step 4 Share Memories Image">
+                <img src="src/img/step4.png" alt="Step 4 Share Memories Image">
                 <p><span>Step 4:</span> Share with friends and family, preserving your legacy for generations.</p>
             </div>
          </div>
@@ -41,8 +41,9 @@ body {
   color: #101D24;
 }
 
-main {
-  margin-top: 110px;
+#how-it-works-section {
+  margin-top: 120px;
+  margin-bottom: 50px;
 }
 
 h2 {
@@ -55,14 +56,17 @@ h2 {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   text-align: center;
+
 }
 
 .step {
   text-align: left;
+  margin: 10px;
 }
 
 .step p {
   font-family: 'Poppins', serif;
+  margin: 1px;
 }
 
 .step img {

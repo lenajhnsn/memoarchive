@@ -7,6 +7,8 @@ import HowItWorksView from '../views/HowItWorksView.vue';
 import DashboardView from '../views/DashboardView.vue';
 import LoginView from '../views/LoginView.vue';
 import SignUpView from '../views/SignUpView.vue';
+import EditMemoriesView from '../views/EditMemoriesView.vue';
+import HomePageView from '../views/HomePageView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -20,6 +22,13 @@ import SignUpView from '../views/SignUpView.vue';
 const routes = [
     {
         path: '/',
+        name: 'homepage',
+        component: HomePageView,
+        meta:{
+            requiresAuth: false
+        }
+    },{
+        path: '/about',
         name: 'about',
         component: AboutView,
         meta:{
@@ -57,7 +66,15 @@ const routes = [
         meta:{
             requiresAuth: false
         }
-    }
+    },
+    {
+        path: '/memories',
+        name: 'edit-memories',
+        component: EditMemoriesView,
+        meta:{
+            requiresAuth: true
+        }
+    },
 ];
 
 // Create router

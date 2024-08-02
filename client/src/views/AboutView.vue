@@ -2,7 +2,7 @@
     <div>
         <!-- Include reusable components-->
         <AppHeader />
-        <EditMemories></EditMemories>
+        <AppAbout />
         <AppFooter />
     </div>
 </template>
@@ -10,13 +10,13 @@
 <script>
 import AppHeader from '../components/AppHeader.vue';
 import  AppFooter from '../components/AppFooter.vue';
-import EditMemories from '../components/EditMemories.vue';
+import AppAbout from '../components/AppAbout.vue';
 
     export default {
     components: { 
         AppHeader,
         AppFooter,
-        EditMemories
+        AppAbout
      }
 }
 </script>

@@ -14,12 +14,12 @@
 
 footer {
   text-align: center;
-  padding: 10px;
+  padding: 1px;
   background-color: #7B7664;
   color: #EBE7D9;
-  position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 100%; 
+
 }
 
 </style>

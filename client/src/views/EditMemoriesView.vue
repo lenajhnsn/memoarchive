@@ -11,7 +11,6 @@ import AppFooter from '../components/AppFooter.vue';
 
 export default {
         components: {
-    Header,
     EditMemories,
     AppHeader,
     AppFooter

@@ -41,7 +41,7 @@ header {
 .logo img {
   max-width: 18%;
   padding: 0;
-  margin: 0;
+  margin-left: 10px;
 }
 
 nav ul {

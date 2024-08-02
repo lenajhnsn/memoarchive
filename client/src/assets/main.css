@@ -5,7 +5,7 @@
 /* Apply Playfair Display font to the entire document */
 body {
   font-family: 'Playfair Display', serif;
-  margin: 10px;
+  margin: 0px;
   padding: 0;
   background-color: #EBE7D9; /* Light beige background color */
   color: #101D24; /* Dark gray/blue text color */
