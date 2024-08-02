@@ -50,7 +50,8 @@ public class AuthenticationController {
             String jwt = tokenProvider.createToken(authentication, false);
 
             Users user = usersDao.getUserByUsername(loginDto.getUsername());
-            return new LoginResponseDto(jwt);
+            System.out.println(user);
+            return new LoginResponseDto(jwt, user);
         }
         catch (DaoException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "DAO error - " + e.getMessage());

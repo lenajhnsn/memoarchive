@@ -4,7 +4,7 @@
         <div class="steps-container">
             <div class="step">
                 <!-- Using router-link for navigation -->
-                <router-link to="/signup">
+                <router-link to="/register">
                 <img src="src/img/step1.png" alt="Step 1 Create Account Image">
                 </router-link>
                 <p><span>Step 1:</span> Create your account and personalize your profile.</p>

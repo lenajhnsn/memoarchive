@@ -1,6 +1,5 @@
 <template>
     <div>
-      <AppHeader />
       <main>
         <section id="intro" class="image-background">
           <img src="src/img/couple-landscape.JPG" alt="Landscape Couple Photo" />
@@ -41,20 +40,13 @@
           </div>
         </section>
       </main>
-      <AppFooter />
     </div>
   </template>
   
   <script>
-  import AppHeader from './AppHeader.vue';
-  import AppFooter from './AppFooter.vue';
   
   export default {
-    name: 'HomePage',
-    components: {
-      AppHeader,
-      AppFooter
-    }
+    name: 'HomePage'
   }
   </script>
   

@@ -1,4 +1,4 @@
-/<template>
+<template>
     <div>
 
     </div>
@@ -6,7 +6,7 @@
 
 <script>
     export default {
-    
+        
     }
 </script>
 

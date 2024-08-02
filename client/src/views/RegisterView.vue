@@ -1,17 +1,17 @@
 /<template>
     <div>
-        <HomePage />
+        <RegisterForm />
     
     </div>
 </template>
 
 <script>
-import HomePage from '../components/HomePage.vue';
+import RegisterForm from '../components/RegisterForm.vue';
 
 
 export default {
     components: {
-    HomePage
+    RegisterForm
 }
     }
 </script>

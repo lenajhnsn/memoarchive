@@ -1,14 +1,15 @@
-import { createRouter as createRouter, createWebHistory } from 'vue-router'
-import { useStore } from 'vuex'
+import { createRouter as createRouter, createWebHistory } from 'vue-router';
+import { useStore } from 'vuex';
 
 // Import views
 import AboutView from '../views/AboutView.vue';
 import HowItWorksView from '../views/HowItWorksView.vue';
 import DashboardView from '../views/DashboardView.vue';
 import LoginView from '../views/LoginView.vue';
-import SignUpView from '../views/SignUpView.vue';
+import RegisterView from '../views/RegisterView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import HomePageView from '../views/HomePageView.vue';
+import LogoutView from '../views/LogoutView.vue'; 
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -60,9 +61,17 @@ const routes = [
         }
     },
     {
-        path: '/signup',
-        name: 'signup',
-        component: SignUpView,
+        path: '/logout',
+        name: 'logout',
+        component: LogoutView,
+        meta:{
+            requiresAuth: false
+        }
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: RegisterView,
         meta:{
             requiresAuth: false
         }

@@ -1,9 +1,6 @@
 <template>
     <!-- Main container for the login view -->
 <div>
-  <!-- Include Header component -->
-  <AppHeader />
-  
   <!-- Main content area for login form -->
   <main>
     <div class="login-container">
@@ -14,39 +11,33 @@
       <form id="login-form" v-on:submit.prevent="login">
         <!-- Username input field -->
         <input type="text" 
-        v-model="username" 
+        v-model="user.username" 
         placeholder="Username" 
         required
         autofocus>
         
         <!-- Password input field -->
-        <input type="password" id="password" v-model="password" placeholder="Password" required>
-        
+        <input type="password" id="password" v-model="user.password" placeholder="Password" required>
+
         <!-- Login button -->
         <button type="submit">Login</button>
         
         <!-- Additional options for password reset and sign-up -->
         <p id="pass-reset">Forgot password?</p>
         <p id="sign-up">Don't have an account?</p>
-        <button v-on:click="goToSignup" type="button">Sign Up</button>
+        <button v-on:click="goToSignUp" type="button">Sign Up</button>
       </form>
     </div>
   </main>
-  
-  <!-- Include Footer component -->
-  <AppFooter />
 </div>
 </template>
 
 <script>
 import authService from "../services/AuthService";
-import AppFooter from "../components/AppFooter.vue";
-import AppHeader from "../components/AppHeader.vue";
 
 export default {
   components: {
-      AppHeader,
-      AppFooter
+  
   },
 
   data() {

@@ -9,8 +9,11 @@
             <!-- Navigation links -->
             <li><router-link to="/about">About</router-link></li>
             <li><router-link to="/how-it-works">How It Works</router-link></li>
-            <li><router-link to="/login">Login</router-link></li>
-            <li><router-link to="/signup">Sign Up</router-link></li>
+            <li><router-link to="/register">Sign Up</router-link></li>
+          
+            <li v-if="$store.state.token"><router-link v-bind:to="{ name: 'logout' }">Logout</router-link></li>
+            <li v-else><router-link v-bind:to="{ name: 'login' }">Login</router-link></li>
+   
         </ul>
     </nav>
 </header>

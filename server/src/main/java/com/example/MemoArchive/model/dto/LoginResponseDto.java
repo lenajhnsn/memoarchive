@@ -13,9 +13,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class LoginResponseDto {
 
     private String token;
+    private Users user;
 
-    public LoginResponseDto(String token) {
+    public LoginResponseDto(String token, Users user) {
         this.token = token;
+        this.user = user;
+
+    }
+    @JsonProperty("user")
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
     }
 
     @JsonProperty("token")

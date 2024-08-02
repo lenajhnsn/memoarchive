@@ -89,7 +89,7 @@ access_type VARCHAR(50) NOT NULL,
 FOREIGN KEY (owner_user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
 FOREIGN KEY (contributor_user_id) REFERENCES Users(user_id) ON DELETE CASCADE);
 
-insert into Users (user_id, first_name, last_name, email, password, account_creation_date, username) values (1, 'Ferdy', 'Skermer', 'fskermer0@creativecommons.org', '$2a$04$6JBbpO5KVEZqORG2GUQY.eJq8lUEmdagddOV6MAFBAWS.fK7OiY8i', '08/01/2023', 'fskermer0');
+insert into Users (user_id, first_name, last_name, email, password, account_creation_date, username) values (1, 'Lena', 'Johnson', 'lena.johnson000@gmail.com', 'password', '08/01/2023', 'lenajhnsn');
 insert into Users (user_id, first_name, last_name, email, password, account_creation_date, username) values (2, 'Brnaby', 'Huggons', 'bhuggons1@noaa.gov', '$2a$04$3Q647iAza31u4BGCRRfmcORb9dk4MqrQOq.VFiEJ74VVd97HFNWCG', '10/08/2023', 'bhuggons1');
 insert into Users (user_id, first_name, last_name, email, password, account_creation_date, username) values (3, 'Ryan', 'Lucian', 'rlucian2@illinois.edu', '$2a$04$8qLs.eyDLkOX9t9GmpeMOOx5wAflZt7C1/NwmTPpvIezAIcMrwak2', '02/02/2024', 'rlucian2');
 insert into Users (user_id, first_name, last_name, email, password, account_creation_date, username) values (4, 'Jacqueline', 'Fortye', 'jfortye3@imgur.com', '$2a$04$zk5wmjKtnoXwZAOCit4YiO2xeWAqdprT7wzSTl9wO.LivqbW9H15C', '07/04/2023', 'jfortye3');
