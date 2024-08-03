@@ -1,8 +1,6 @@
 /<template>
     <div>
-        <AppLogin />
-       
-    
+        <AppLogin />  
     </div>
 </template>
 

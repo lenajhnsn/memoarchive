@@ -1,15 +1,21 @@
-<template>
+/<template>
+    <!-- When a user logs out, redirect to HomePage -->
     <div>
-
+       <HomePage />   
     </div>
 </template>
 
 <script>
-    export default {
-        
+import HomePage from '../components/HomePage.vue';
+
+
+export default {
+    components: {
+    HomePage
+    }
     }
 </script>
 
 <style scoped>
-
+/* TODO: Add additional styling here, if needed. */
 </style>

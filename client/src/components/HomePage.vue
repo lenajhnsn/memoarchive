@@ -6,7 +6,7 @@
           <div class="overlay--about-text">
             <h2>Memo Archive is a time machine for your memories, a treasure chest of nostalgia, and a virtual hug from the past.</h2>
           </div>
-          <router-link to="/login"><button class="get-started-btn">Create Your Time Capsule</button></router-link>
+          <router-link to="/login"><button class="get-started-btn">Get Started!</button></router-link>
         </section>
   
         <section id="about-section">

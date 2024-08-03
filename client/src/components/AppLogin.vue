@@ -9,6 +9,7 @@
       
       <!-- Login form -->
       <form id="login-form" v-on:submit.prevent="login">
+        
         <!-- Username input field -->
         <input type="text" 
         v-model="user.username" 
@@ -17,10 +18,14 @@
         autofocus>
         
         <!-- Password input field -->
-        <input type="password" id="password" v-model="user.password" placeholder="Password" required>
+        <input type="password" 
+        id="password" 
+        v-model="user.password" 
+        placeholder="Password" 
+        required>
 
         <!-- Login button -->
-        <button type="submit">Login</button>
+        <button type="submit">Login</button> 
         
         <!-- Additional options for password reset and sign-up -->
         <p id="pass-reset">Forgot password?</p>
@@ -56,7 +61,7 @@ export default {
           if (response.status == 200) {
             this.$store.commit("SET_AUTH_TOKEN", response.data.token);
             this.$store.commit("SET_USER", response.data.user);
-            this.$router.push("/");
+            this.$router.push("/memories");
           }
         })
         .catch((error) => {

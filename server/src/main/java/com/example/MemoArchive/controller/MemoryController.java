@@ -22,6 +22,7 @@ import java.util.List;
  * MemoryController handles HTTP requests related to memory operations.
  */
 
+@CrossOrigin
 @Component
 @RestController // Includes @Controller functions
 @RequestMapping("/memory") // Set base path for controller
