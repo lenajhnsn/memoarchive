@@ -1,5 +1,4 @@
 <template>
-    <!-- Main container for the login view -->
 <div>
   <!-- Main content area for login form -->
   <main>
@@ -29,8 +28,7 @@
         
         <!-- Additional options for password reset and sign-up -->
         <p id="pass-reset">Forgot password?</p>
-        <p id="sign-up">Don't have an account?</p>
-        <button v-on:click="goToSignUp" type="button">Sign Up</button>
+        <p id="sign-up" v-on:click="goToSignUp">Don't have an account? <span>Sign Up</span></p>
       </form>
     </div>
   </main>
@@ -75,6 +73,9 @@ export default {
           }
         });
     },
+    goToSignUp() {
+      this.$router.push("/register"); // Redirect user to the login page
+    },
   },
 };
 </script>
@@ -88,59 +89,15 @@ background-color: #EBE7D9;
 color: #101D24;
 }
 
-/* Styles for header */
-header {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-background-color: #7B7664;
-padding: 10px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-z-index: 10;
-}
-
-.logo img {
-max-width: 18%;
-}
-
-nav ul {
-font-family: 'Poppins', serif;
-font-size: 18px;
-list-style-type: none;
-margin: 0;
-padding: 0;
-display: flex;
-text-transform: uppercase;
-}
-
-nav ul li {
-margin-right: 20px;
-}
-
-nav ul li a {
-text-decoration: none;
-color: #EBE7D9;
-font-weight: bold;
-}
-
-a:hover {
-color: #101D24;
-text-decoration: underline;
-}
-
 /* Styles for login container and form */
 .login-container {
-background-color: white;
-margin: 80px auto; /* Centered with margin from the top for fixed header */
-padding: 20px;
-border: 2px solid #888;
-width: 30%;
-border-radius: 8px;
-font-family: 'Poppins', sans-serif;
-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 2px solid #888;
+  width: 30%;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
 }
 
 h2 {
@@ -179,12 +136,17 @@ button[type=submit]:hover, button[type=button]:hover {
 background-color: #234150;
 }
 
-#pass-reset, #sign-up {
-font-size: 12px;
-text-align: center;
+span {
+  font-weight: bold;
+  font-size: 12.5px;
 }
 
-#pass-reset:hover, #sign-up:hover {
+#pass-reset, #sign-up {
+font-size: 12px;
+text-align: left;
+}
+
+span:hover {
 text-decoration: underline;
 cursor: pointer;
 }

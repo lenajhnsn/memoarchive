@@ -35,8 +35,7 @@
             required
           />
           <button type="submit">Create Account</button>
-          <p id="login">Already have an account?</p>
-          <button type="button" v-on:click="redirectToLogin">Log In</button>
+          <p id="login" v-on:click="redirectToLogin">Already have an account? <span>Log In</span></p>
         </form>
       </div>
     </div>
@@ -162,5 +161,20 @@ button[type="button"] {
 
 button[type="button"]:hover {
   background-color: #a8a392;
+}
+
+span {
+  font-weight: bold;
+  font-size: 12.5px;
+}
+
+#login {
+font-size: 12px;
+text-align: left;
+}
+
+span:hover {
+text-decoration: underline;
+cursor: pointer;
 }
 </style>
