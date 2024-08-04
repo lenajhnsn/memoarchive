@@ -1,18 +1,17 @@
 /<template>
     <div>
-        <AppLogin />  
+        <LoginForm />  
     </div>
 </template>
 
 <script>
-import AppLogin from '../components/AppLogin.vue';
+import LoginForm from '../components/LoginForm.vue';
 
 
 export default {
     components: {
-    AppLogin,
-
-    }
+    LoginForm
+}
     }
 </script>
 

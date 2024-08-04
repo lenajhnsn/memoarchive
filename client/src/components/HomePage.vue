@@ -6,7 +6,7 @@
           <div class="overlay--about-text">
             <h2>Memo Archive is a time machine for your memories, a treasure chest of nostalgia, and a virtual hug from the past.</h2>
           </div>
-          <router-link to="/login"><button class="get-started-btn">Get Started!</button></router-link>
+          <router-link to="/register"><button class="get-started-btn">Get Started!</button></router-link>
         </section>
   
         <section id="about-section">
@@ -22,11 +22,11 @@
           <h2>How It Works</h2>
           <div class="steps-container">
             <div class="step">
-              <router-link to="/login"><img id="step-1" src="src/img/step1.png" alt="Step 1 Create Account Image" /></router-link>
+              <router-link to="/register"><img id="step-1" src="src/img/step1.png" alt="Step 1 Create Account Image" /></router-link>
               <p><span>Step 1: </span> Create your account and personalize your profile.</p>
             </div>
             <div class="step">
-              <img id="step-2" src="src/img/step2.png" alt="Step 2 Upload Memory Data Image" />
+              <router-link to="/login"><img id="step-2" src="src/img/step2.png" alt="Step 2 Upload Memory Data Image" /></router-link>
               <p><span>Step 2: </span>Start uploading your photos, videos, and voice memos.</p>
             </div>
             <div class="step">
