@@ -1,6 +1,10 @@
 <template>
   <div>
     <h1>Your Memories</h1>
+    <SearchBar
+        v-bind:memories="memories"
+        v-bind:onSearch="handleSearchResults"
+    />
     <div class="image-grid">
       <!-- Loop through the memories array and create a MemoryCard for each memory -->
       <!-- Use getter from Vuex to get memories -->
@@ -17,12 +21,14 @@
 
 <script>
 import MemoryCard from "../components/MemoryCard.vue"; // Import MemoryCard component
+import SearchBar from "../components/SearchBar.vue";
 import MemoryService from "../services/MemoryService";
 
 export default {
   components: {
     MemoryCard,
-  },
+    SearchBar
+},
   data() {
     return {
       memories: [], // Initialize an empty array to store the memories
