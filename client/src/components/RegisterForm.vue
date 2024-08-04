@@ -1,45 +1,45 @@
 <template>
-  <main>
-    <div id="register-form" class="register">
-      <div class="register-content">
-        <h2>Sign Up</h2>
-        <form v-on:submit.prevent="createAccount">
-          <input
-            type="text"
-            v-model="firstName"
-            placeholder="First Name"
-            required
-          />
-          <input
-            type="text"
-            v-model="lastName"
-            placeholder="Last Name"
-            required
-          />
-          <input 
-          type="email"
-          v-model="email" 
-          placeholder="Email" 
-          required />
+  <div id="app">
+    <main class="main-content">
+      <div id="register-form" class="register">
+        <div class="register-content">
+          <h2>Sign Up</h2>
+          <form v-on:submit.prevent="createAccount">
+            <input
+              type="text"
+              v-model="firstName"
+              placeholder="First Name"
+              required
+            />
+            <input
+              type="text"
+              v-model="lastName"
+              placeholder="Last Name"
+              required
+            />
+            <input type="email" v-model="email" placeholder="Email" required />
 
-          <input
-            type="text"
-            v-model="username"
-            placeholder="Username"
-            required
-          />
-          <input
-            type="password"
-            v-model="password"
-            placeholder="Password"
-            required
-          />
-          <button type="submit">Create Account</button>
-          <p id="login" v-on:click="redirectToLogin">Already have an account? <span>Log In</span></p>
-        </form>
+            <input
+              type="text"
+              v-model="username"
+              placeholder="Username"
+              required
+            />
+            <input
+              type="password"
+              v-model="password"
+              placeholder="Password"
+              required
+            />
+            <button type="submit">Create Account</button>
+            <p id="login" v-on:click="redirectToLogin">
+              Already have an account? <span>Log In</span>
+            </p>
+          </form>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -169,12 +169,12 @@ span {
 }
 
 #login {
-font-size: 12px;
-text-align: left;
+  font-size: 12px;
+  text-align: left;
 }
 
 span:hover {
-text-decoration: underline;
-cursor: pointer;
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>

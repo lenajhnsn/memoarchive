@@ -1,27 +1,37 @@
 <template>
-  <div class="create-memory">
-    <button v-on:click="toggleCreateForm" class="create-button">
-      Add Memory
-    </button>
+  <div id="app">
+    <main class="main-content">
+      <div class="create-memory">
+        <button v-on:click="toggleCreateForm" class="create-button">
+          Add Memory
+        </button>
 
-    <div v-if="showCreateForm" class="create-form">
-      <input
-        v-model="newMemory.content"
-        placeholder="Image URL"
-        class="create-input"
-      />
-      <input v-model="newMemory.memoryDate" type="date" class="create-input" />
+        <div v-if="showCreateForm" class="create-form">
+          <input
+            v-model="newMemory.content"
+            placeholder="Image URL"
+            class="create-input"
+          />
+          <input
+            v-model="newMemory.memoryDate"
+            type="date"
+            class="create-input"
+          />
 
-      <!-- text area allows for multi-line text -->
-      <textarea
-        v-model="newMemory.description"
-        placeholder="Description"
-        class="create-description"
-      ></textarea>
+          <!-- text area allows for multi-line text -->
+          <textarea
+            v-model="newMemory.description"
+            placeholder="Description"
+            class="create-description"
+          ></textarea>
 
-      <button v-on:click="createMemory" class="save-button">Save</button>
-      <button v-on:click="cancelCreate" class="cancel-button">Cancel</button>
-    </div>
+          <button v-on:click="createMemory" class="save-button">Save</button>
+          <button v-on:click="cancelCreate" class="cancel-button">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </main>
   </div>
 </template>
 

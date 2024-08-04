@@ -1,25 +1,24 @@
 <template>
-    <footer>
-        <p>&copy; 2024 Memo Archive</p> 
-    </footer>
+  <div id="app">
+    <main class="main-content">
+      <footer>
+        <p>&copy; 2024 Memo Archive</p>
+      </footer>
+    </main>
+  </div>
 </template>
 
 <script>
-    export default {
-
-    }
+export default {};
 </script>
 
 <style scoped>
-
 footer {
   text-align: center;
   padding: 1px;
-  background-color: #7B7664;
-  color: #EBE7D9;
+  background-color: #7b7664;
+  color: #ebe7d9;
   bottom: 0;
-  width: 100%; 
-
+  width: 100%;
 }
-
 </style>

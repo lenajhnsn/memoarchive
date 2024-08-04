@@ -1,18 +1,22 @@
 <template>
-  <div class="search-bar">
-    <input
-      id="search-input"
-      v-model="searchTerm"
-      placeholder="Search Memories"
-      :style="inputStyle"
-    />
-    <button
-      id="search-button"
-      v-on:click="searchMemories"
-      class="search-button"
-    >
-      Search
-    </button>
+  <div id="app">
+    <main class="main-content">
+      <div class="search-bar">
+        <input
+          id="search-input"
+          v-model="searchTerm"
+          placeholder="Search Memories"
+          :style="inputStyle"
+        />
+        <button
+          id="search-button"
+          v-on:click="searchMemories"
+          class="search-button"
+        >
+          Search
+        </button>
+      </div>
+    </main>
   </div>
 </template>
 

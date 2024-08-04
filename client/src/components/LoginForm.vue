@@ -1,47 +1,49 @@
 <template>
-<div>
-  <!-- Main content area for login form -->
-  <main>
-    <div class="login-container">
-      <!-- Title for login form -->
-      <h2>Login</h2>
-      
-      <!-- Login form -->
-      <form id="login-form" v-on:submit.prevent="login">
-        
-        <!-- Username input field -->
-        <input type="text" 
-        v-model="user.username" 
-        placeholder="Username" 
-        required
-        autofocus>
-        
-        <!-- Password input field -->
-        <input type="password" 
-        id="password" 
-        v-model="user.password" 
-        placeholder="Password" 
-        required>
+  <div id="app">
+    <main class="main-content">
+      <div class="login-container">
+        <!-- Title for login form -->
+        <h2>Login</h2>
 
-        <!-- Login button -->
-        <button type="submit">Login</button> 
-        
-        <!-- Additional options for password reset and sign-up -->
-        <p id="pass-reset">Forgot password?</p>
-        <p id="sign-up" v-on:click="goToSignUp">Don't have an account? <span>Sign Up</span></p>
-      </form>
-    </div>
-  </main>
-</div>
+        <!-- Login form -->
+        <form id="login-form" v-on:submit.prevent="login">
+          <!-- Username input field -->
+          <input
+            type="text"
+            v-model="user.username"
+            placeholder="Username"
+            required
+            autofocus
+          />
+
+          <!-- Password input field -->
+          <input
+            type="password"
+            id="password"
+            v-model="user.password"
+            placeholder="Password"
+            required
+          />
+
+          <!-- Login button -->
+          <button type="submit">Login</button>
+
+          <!-- Additional options for password reset and sign-up -->
+          <p id="pass-reset">Forgot password?</p>
+          <p id="sign-up" v-on:click="goToSignUp">
+            Don't have an account? <span>Sign Up</span>
+          </p>
+        </form>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script>
 import authService from "../services/AuthService";
 
 export default {
-  components: {
-  
-  },
+  components: {},
 
   data() {
     return {
@@ -82,11 +84,11 @@ export default {
 
 <style scoped>
 body {
-font-family: 'Playfair Display', serif;
-margin: 10px;
-padding: 0;
-background-color: #EBE7D9;
-color: #101D24;
+  font-family: "Playfair Display", serif;
+  margin: 10px;
+  padding: 0;
+  background-color: #ebe7d9;
+  color: #101d24;
 }
 
 /* Styles for login container and form */
@@ -101,39 +103,42 @@ color: #101D24;
 }
 
 h2 {
-text-align: center;
-font-size: 40px;
-text-transform: uppercase;
-font-family: 'Poppins', sans-serif;
-margin: 0 0 20px 0;
+  text-align: center;
+  font-size: 40px;
+  text-transform: uppercase;
+  font-family: "Poppins", sans-serif;
+  margin: 0 0 20px 0;
 }
 
 form {
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-input[type=text], input[type=password] {
-padding: 10px;
-margin-bottom: 10px;
-border: 1px solid #ccc;
-border-radius: 4px;
-font-size: 16px;
+input[type="text"],
+input[type="password"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
-button[type=submit], button[type=button] {
-background-color: #101D24;
-color: white;
-border: none;
-padding: 10px;
-font-size: 16px;
-border-radius: 4px;
-cursor: pointer;
-margin-bottom: 10px;
+button[type="submit"],
+button[type="button"] {
+  background-color: #101d24;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
-button[type=submit]:hover, button[type=button]:hover {
-background-color: #234150;
+button[type="submit"]:hover,
+button[type="button"]:hover {
+  background-color: #234150;
 }
 
 span {
@@ -141,13 +146,14 @@ span {
   font-size: 12.5px;
 }
 
-#pass-reset, #sign-up {
-font-size: 12px;
-text-align: left;
+#pass-reset,
+#sign-up {
+  font-size: 12px;
+  text-align: left;
 }
 
 span:hover {
-text-decoration: underline;
-cursor: pointer;
+  text-decoration: underline;
+  cursor: pointer;
 }
 </style>

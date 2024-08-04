@@ -1,39 +1,69 @@
 <template>
+  <div id="app">
     <header>
-        <div class="logo">
-            <!-- Router link for logo, redirects to home page -->
-            <router-link to="/"><img src="src/assets/MA.png" alt="Logo"></router-link>
-        </div>
-    <nav>
+      <div class="logo">
+        <!-- Router link for logo, redirects to home page -->
+        <router-link to="/"
+          ><img src="src/assets/MA.png" alt="Logo"
+        /></router-link>
+      </div>
+      <nav>
         <ul>
-            <!-- Navigation links -->
-            <li><router-link to="/about">About</router-link></li>
-            <li><router-link to="/how-it-works">How It Works</router-link></li>
-            <!-- //TODO: Make sign up disappear when logged in -->
-            <li><router-link to="/register">Sign Up</router-link></li> 
-            <li v-if="$store.state.token"><router-link v-bind:to="{ name: 'logout' }" v-on:click="$store.commit('LOGOUT')">Logout</router-link></li>
-            <li v-else><router-link v-bind:to="{ name: 'login' }">Login</router-link></li>
-   
+          <!-- Navigation links -->
+          <li><router-link to="/about">About</router-link></li>
+          <li><router-link to="/how-it-works">How It Works</router-link></li>
+
+          <!-- Show Sign Up only if not logged in -->
+          <li v-if="!isLoggedIn">
+            <router-link to="/register">Sign Up</router-link>
+          </li>
+
+          <!-- Show Login/Logout based on the state of user authentication -->
+          <li v-if="isLoggedIn">
+            <router-link v-on:click.prevent="logout" to="/">Logout</router-link>
+          </li>
+          <li v-else><router-link to="/login">Login</router-link></li>
+
+          <!-- Profile link/icon only shown when logged in -->
+          <li v-if="isLoggedIn">
+            <router-link to="/memories">
+              <img
+                src="src/assets/profile-icon.png"
+                alt="Profile"
+                class="profile-icon"
+              />
+            </router-link>
+          </li>
         </ul>
-    </nav>
-</header>
+      </nav>
+    </header>
+  </div>
 </template>
 
 <script>
-    export default {
-
-    }
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.token !== null;
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.commit("LOGOUT");
+      this.$router.push("/"); // Redirect to home after logout
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #7B7664;
-  padding: 10px;
+  background-color: #7b7664;
+  padding: 10px 20px; /* Added right padding for spacing */
   padding-bottom: 2px;
   display: flex;
   justify-content: space-between;
@@ -44,11 +74,18 @@ header {
 .logo img {
   max-width: 18%;
   padding: 0;
-  margin-left: 10px;
+  margin-left: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
 }
 
 nav ul {
-  font-family: 'Poppins', serif;
+  font-family: "Poppins", serif;
   font-size: 18px;
   list-style-type: none;
   margin: 0;
@@ -62,18 +99,26 @@ nav ul li {
 }
 
 nav ul li:last-child {
-  margin-right: 20px;
+  margin-right: 0;
 }
 
 nav ul li a {
   text-decoration: none;
-  color: #EBE7D9;
+  color: #ebe7d9;
   font-weight: bold;
 }
 
 a:hover {
-  color: #101D24;
+  color: #101d24;
   text-decoration: underline;
 }
+.profile-link {
+  margin-left: auto; /* Pushes the profile icon to the right */
+}
 
+.profile-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
 </style>
