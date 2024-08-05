@@ -18,7 +18,7 @@
         <button v-on:click="triggerUpdate(memory.id, memory)">Update</button>
 
         <!-- Button to delete the memory. Calls the deleteMemory method -->
-        <button v-on:click="triggerDelete(memory.id)">Delete</button>
+        <button v-on:click="triggerDelete()">Delete</button>
       </div>
     </main>
   </div>
@@ -40,9 +40,12 @@ export default {
   methods: {
     // Trigger the update prompt in the parent component
     triggerUpdate() {
-      this.onUpdate(this.memory);
+      if (this.memory) {
+        this.onUpdate(this.memory);
+      } else {
+        console.error("Memory data is missing.");
+      }
     },
-
     // Call the onDelete function with the memory id to trigger the deletion process
     triggerDelete() {
       if (this.memory.id) {

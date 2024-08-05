@@ -24,7 +24,6 @@ public class WebSecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final UserModelDetailsService userModelDetailsService;
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public WebSecurityConfig(
             TokenProvider tokenProvider,
@@ -40,7 +39,7 @@ public class WebSecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return passwordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
     /**

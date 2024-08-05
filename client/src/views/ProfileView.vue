@@ -1,14 +1,15 @@
 <template>
   <div>
     <h1>Your Memories</h1>
-    <!-- SearchBar component -->
-    <SearchBar
-      v-bind:memories="memories"
-      v-bind:onSearch="handleSearchResults"
-    />
-    <!-- CreateMemory component -->
-    <CreateMemory v-bind:onCreate="handleCreateMemory" />
-
+    <div class="toolbar">
+      <!-- SearchBar component -->
+      <SearchBar
+        v-bind:memories="memories"
+        v-bind:onSearch="handleSearchResults"
+      />
+      <!-- CreateMemory component -->
+      <CreateMemory v-bind:onCreate="handleCreateMemory" />
+    </div>
     <div class="image-grid">
       <!-- Loop through the memories array and create a MemoryCard for each memory -->
       <MemoryCard
@@ -18,6 +19,20 @@
         v-bind:onUpdate="handleUpdateMemory"
         v-bind:onDelete="handleDeleteMemory"
       />
+    </div>
+    <div v-if="showEditModal" class="edit-modal">
+      <!-- Form fields for editing memoryDate, description, and image -->
+      <input v-model="editableMemory.memoryDate" placeholder="Memory Date" />
+      <textarea
+        v-model="editableMemory.description"
+        placeholder="Description"
+      ></textarea>
+      <input v-model="editableMemory.content" placeholder="Image URL" />
+
+      <!-- Button to save the changes -->
+      <button v-on:click="handleUpdateMemory(editableMemory)">Save</button>
+      <!-- Button to cancel the editing -->
+      <button v-on:click="showEditModal = false">Cancel</button>
     </div>
   </div>
 </template>
@@ -38,6 +53,8 @@ export default {
     return {
       memories: [], // Initialize an empty array to store the memories
       filteredMemories: [], // Array to  store filtered memories based on search
+      editableMemory: null, // Holds memory that's being updated
+      showEditModal: false, // Controls visibility of the edit modal
     };
   },
   created() {
@@ -68,14 +85,26 @@ export default {
 
     // UPDATE: Function to handle updated memory from child (MemoryCard) component
     handleUpdateMemory(updatedMemory) {
-      // Update memory in the main list
-      this.memories = this.memories.map((memory) =>
-        memory.id === updatedMemory.id ? updatedMemory : memory
-      );
-      // Update memory in the filtered list
-      this.filteredMemories = this.filteredMemories.map((memory) =>
-        memory.id === updatedMemory.id ? updatedMemory : memory
-      );
+      // Call the update method from MemoryService, passing the updated memory details.
+      MemoryService.update(updatedMemory.id, updatedMemory)
+        .then((response) => {
+          // Extract the updated memory data from the response.
+          const updatedData = response.data;
+          // Update the memory in the main list (this.memories).
+          this.memories = this.memories.map((memory) =>
+            memory.id === updatedData.id ? updatedData : memory
+          );
+          // Update memory in the filtered list
+          this.filteredMemories = this.filteredMemories.map((memory) =>
+            memory.id === updatedMemory.id ? updatedMemory : memory
+          );
+          // Close the edit modal or interface, when appropriate
+          this.showEditModal = false;
+        })
+        .catch((error) => {
+          // Log any errors that occur during the update process.
+          console.error("Error updating memory:", error);
+        });
     },
 
     // DELETE: Function to handle deleted memory from child component
@@ -85,12 +114,13 @@ export default {
         console.error("No memory ID provided for deletion.");
         return;
       }
-      // Remove the memory from the main list
-      this.memories = this.memories.filter((memory) => memory.id !== memoryId);
-      // Remove the memory from the filtered list
-      this.filteredMemories = this.filteredMemories.filter(
-        (memory) => memory.id !== memoryId
-      );
+      MemoryService.delete(memoryId)
+        .then(() => {
+          this.getMemories(); // Refresh the list after deletion
+        })
+        .catch((error) => {
+          console.error("Error deleting memory.", error);
+        });
     },
 
     // SEARCH: Update the filtered memories based on the search results
@@ -98,11 +128,25 @@ export default {
       this.filteredMemories = filtered;
     },
   },
+
+  // Open the model to edit a memory after selecting the update button
+  openEditModal(memory) {
+    // Initialize memory object with current details that can be edited
+    this.editableMemory = { ...memory };
+    // Visibility of modal
+    this.showEditModal = true;
+  },
 };
 </script>
 
 <style scoped>
 /* Scoped styles for the ProfileView component */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
 .image-grid {
   display: flex;
   flex-wrap: wrap;
