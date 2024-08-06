@@ -117,7 +117,7 @@ public class MemoryService implements MemoryServiceInterface {
 
         memory.setMemoryId(memoryId); // Set the memory ID
         memoryDao.updateMemory(memory, principal); // Update the memory
-        return ResponseEntity.ok("Memory updated successfully."); // Return 200 OK with success message
+        return ResponseEntity.ok(memory); // Return memory object
     }
 
     // DELETE

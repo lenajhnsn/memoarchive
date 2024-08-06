@@ -37,7 +37,7 @@ export default {
       const term = this.searchTerm.toLowerCase();
       // Filter memories to include only those matching the search term in the description
       const filtered = this.memories.filter((memory) =>
-        memory.description.toLowerCase().includes(term)
+        memory.description?.toLowerCase().includes(term)
       );
       this.onSearch(filtered); // Call the parent (ProfileView) component's search handler with filtered results
     },

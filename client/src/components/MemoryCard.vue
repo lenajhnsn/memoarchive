@@ -15,7 +15,7 @@
         <p class="memory-description">{{ memory.description }}</p>
 
         <!-- Button to update the memory. Pressing button calls the updateMemory method -->
-        <button v-on:click="triggerUpdate(memory.id, memory)">Update</button>
+        <button v-on:click="triggerUpdate()">Update</button>
 
         <!-- Button to delete the memory. Calls the deleteMemory method -->
         <button v-on:click="triggerDelete()">Delete</button>
@@ -37,6 +37,10 @@ export default {
     onUpdate: Function, // This is a function passed from the parent (ProfileView)
     onDelete: Function, // This is a function passed from the parent (ProfileView)
   },
+  // created() {
+  //   // What data is being passed in
+  //   console.log(this.memory);
+  // },
   methods: {
     // Trigger the update prompt in the parent component
     triggerUpdate() {
@@ -48,8 +52,8 @@ export default {
     },
     // Call the onDelete function with the memory id to trigger the deletion process
     triggerDelete() {
-      if (this.memory.id) {
-        this.onDelete(this.memory.id);
+      if (this.memory.memoryId) {
+        this.onDelete(this.memory.memoryId);
       } else {
         console.error("Memory ID is undefined");
       }

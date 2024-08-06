@@ -20,8 +20,9 @@ public class DaoExceptionUtil {
             // Handling for database integrity constraints violations.
             throw new DaoException("Data integrity violation", e);
         } catch (DataAccessException e) {
+            throw e;
             // General handling for DataAccessException (Spring has capabilities)
-            throw new DaoException("Data access error.", e);
+            // throw new DaoException("Data access error.", e);
         }
     }
 }

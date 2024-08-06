@@ -55,9 +55,11 @@ export default {
     },
     // Function to save new memory using the back end
     createMemory() {
+      const memoryDate = new Date(this.newMemory.memoryDate)
       const memoryData = {
         // spread properties of newMemory object into memoryData object
         ...this.newMemory,
+        memoryDate: `${(memoryDate.getUTCMonth()+1).toString().padStart(2, '0')}/${memoryDate.getUTCDate().toString().padStart(2, '0')}/${memoryDate.getUTCFullYear()}`
         // TODO: Automatically set the creation date
       };
       MemoryService.create(memoryData)

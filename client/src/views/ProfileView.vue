@@ -16,7 +16,7 @@
         v-for="memory in filteredMemories"
         v-bind:key="memory.id"
         v-bind:memory="memory"
-        v-bind:onUpdate="handleUpdateMemory"
+        v-bind:onUpdate="openEditModal"
         v-bind:onDelete="handleDeleteMemory"
       />
     </div>
@@ -30,7 +30,7 @@
       <input v-model="editableMemory.content" placeholder="Image URL" />
 
       <!-- Button to save the changes -->
-      <button v-on:click="handleUpdateMemory(editableMemory)">Save</button>
+      <button v-on:click="handleUpdateMemory()">Save</button>
       <!-- Button to cancel the editing -->
       <button v-on:click="showEditModal = false">Cancel</button>
     </div>
@@ -84,19 +84,20 @@ export default {
     },
 
     // UPDATE: Function to handle updated memory from child (MemoryCard) component
-    handleUpdateMemory(updatedMemory) {
+    handleUpdateMemory() {
+      const updatedMemory = this.editableMemory;
       // Call the update method from MemoryService, passing the updated memory details.
-      MemoryService.update(updatedMemory.id, updatedMemory)
+      MemoryService.update(updatedMemory.memoryId, updatedMemory)
         .then((response) => {
           // Extract the updated memory data from the response.
           const updatedData = response.data;
           // Update the memory in the main list (this.memories).
           this.memories = this.memories.map((memory) =>
-            memory.id === updatedData.id ? updatedData : memory
+            memory.memoryId === updatedData.memoryId ? updatedData : memory
           );
           // Update memory in the filtered list
           this.filteredMemories = this.filteredMemories.map((memory) =>
-            memory.id === updatedMemory.id ? updatedMemory : memory
+            memory.memoryId === updatedMemory.memoryId ? updatedMemory : memory
           );
           // Close the edit modal or interface, when appropriate
           this.showEditModal = false;
@@ -127,14 +128,14 @@ export default {
     handleSearchResults(filtered) {
       this.filteredMemories = filtered;
     },
-  },
 
-  // Open the model to edit a memory after selecting the update button
-  openEditModal(memory) {
-    // Initialize memory object with current details that can be edited
-    this.editableMemory = { ...memory };
-    // Visibility of modal
-    this.showEditModal = true;
+    // Open the model to edit a memory after selecting the update button
+    openEditModal(memory) {
+      // Initialize memory object with current details that can be edited
+      this.editableMemory = { ...memory };
+      // Visibility of modal
+      this.showEditModal = true;
+    },
   },
 };
 </script>
