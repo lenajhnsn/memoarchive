@@ -80,7 +80,7 @@ export default {
     // CREATE: Function to handle new memory creation from CreateMemory
     handleCreateMemory(newMemory) {
       this.memories.push(newMemory);
-      this.filteredMemories.push(newMemory);
+      // this.filteredMemories.push(newMemory);
     },
 
     // UPDATE: Function to handle updated memory from child (MemoryCard) component
