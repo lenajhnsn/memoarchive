@@ -20,7 +20,7 @@
         v-bind:onDelete="handleDeleteMemory"
       />
     </div>
-    < v-if="showEditModal" class="edit-modal">
+    <dialog ref="editDialog" v-if="editableMemory" class="edit-modal">
       <!-- Form fields for editing memoryDate, description, and image -->
       <input v-model="editableMemory.memoryDate" placeholder="Memory Date" />
       <textarea
@@ -32,8 +32,8 @@
       <!-- Button to save the changes -->
       <button v-on:click="handleUpdateMemory()">Save</button>
       <!-- Button to cancel the editing -->
-      <button v-on:click="showEditModal = false">Cancel</button>
-    </div>
+      <button v-on:click="closeEditModal()">Cancel</button>
+    </dialog>
   </div>
 </template>
 
@@ -105,7 +105,7 @@ export default {
           this.filteredMemories = this.memories; // Update filtered memories
 
           // Close the edit modal or interface, when appropriate
-          this.showEditModal = false;
+          this.closeEditModal();
         })
         .catch((error) => {
           // Log any errors that occur during the update process.
@@ -138,8 +138,14 @@ export default {
     openEditModal(memory) {
       // Initialize memory object with current details that can be edited
       this.editableMemory = { ...memory };
-      // Visibility of modal
-      this.showEditModal = true;
+      // Open the dialog element
+      this.$refs.editDialog.showModal();
+    },
+
+    // Close the modal
+    closeEditModal() {
+      // Close the dialog element
+      this.$refs.editDialog.close();
     },
   },
 };
