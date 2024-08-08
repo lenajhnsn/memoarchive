@@ -2,23 +2,29 @@
   <div id="app">
     <main class="main-content">
       <div class="memory">
-        <!-- Display the title of the memory -->
-        <h3>{{ memory.title }}</h3>
-
         <!-- Display the image associated with the memory -->
-        <img v-bind:src="memory.content" v-bind:alt="memory.title" />
+        <img v-bind:src="memory.content" />
 
         <!-- Display the date of the memory -->
         <p class="memory-date">{{ memory.memoryDate }}</p>
 
         <!-- Display the description of the memory -->
         <p class="memory-description">{{ memory.description }}</p>
+        <div id="icons">
+          <!-- Icon to update the memory. Pressing button calls the updateMemory method -->
+          <font-awesome-icon
+            icon="pen-to-square"
+            v-on:click="triggerUpdate()"
+            id="update-icon"
+          ></font-awesome-icon>
 
-        <!-- Button to update the memory. Pressing button calls the updateMemory method -->
-        <button v-on:click="triggerUpdate()">Update</button>
-
-        <!-- Button to delete the memory. Calls the deleteMemory method -->
-        <button v-on:click="triggerDelete()">Delete</button>
+          <!-- Icon to delete the memory. Calls the deleteMemory method -->
+          <font-awesome-icon
+            icon="trash-can"
+            v-on:click="triggerDelete()"
+            id="delete-icon"
+          ></font-awesome-icon>
+        </div>
       </div>
     </main>
   </div>
@@ -65,23 +71,29 @@ export default {
 <style scoped>
 /* Scoped styles for the memory component */
 
-.edit-memory-btn {
-  background-color: #101d24; /* Light beige background */
-  color: #ebe7d9; /* Dark gray/blue text color */
-  border: none;
-  cursor: pointer;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
+
+/* Styling for the update and delete icons */
+#update-icon,
+#delete-icon {
+  font-size: 24px; /* Set the size of the icon */
+  color: #101d24; /* Set the color of the icon */
+  cursor: pointer; /* Make the icon clickable */
+  margin: 10px; /* Provide some space around the icon */
   display: block;
-  margin: 0 auto;
-  padding: 15px 30px;
+  text-align: center;
 }
 
-.edit-memory-btn:hover {
-  background-color: #101d24;
-  text-decoration: underline;
+#update-icon:hover,
+#delete-icon:hover {
+  color: #234150;
+}
+
+/* Styles for icons container */
+#icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Align icons vertically in the center */
+  width: 100%; /* Container takes the full width */
 }
 
 /* Style for the memory container */
@@ -90,6 +102,7 @@ export default {
   grid-template-columns: repeat(auto-fit, minmax(300px, 350px));
   gap: 20px;
   padding: 20px;
+  
 }
 
 /* Style for each memory */
@@ -101,6 +114,11 @@ export default {
   text-align: center;
   box-shadow: 0 2px 4px rgba(16, 29, 36, 0.1);
   width: 300px;
+  height: 400px;
+  display: flex; /* Flexbox for vertical alignment */
+  flex-direction: column; /* Align items vertically */
+  justify-content: space-between; /* Even space between elements */
+  box-sizing: border-box; /* Includes padding in width and height */
 }
 
 .memory h3 {
@@ -109,10 +127,12 @@ export default {
 }
 
 .memory img {
-  width: 100%;
-  height: auto;
+  max-width: 100%; /* Make sure the image does not exceed the card width */
+  max-height: 200px; /* Limit the max height of the image */
+  object-fit: cover; /* Crop the image to fit within the tile */
   border-radius: 8px;
   margin-bottom: 10px;
+  flex-shrink: 0; /* Prevent image from shrinking */
 }
 
 .memory-date {

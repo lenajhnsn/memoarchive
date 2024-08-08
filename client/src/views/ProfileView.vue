@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="profile-view">
     <h1>Your Memories</h1>
     <div class="toolbar">
       <!-- SearchBar component -->
@@ -20,7 +20,7 @@
         v-bind:onDelete="handleDeleteMemory"
       />
     </div>
-    <div v-if="showEditModal" class="edit-modal">
+    < v-if="showEditModal" class="edit-modal">
       <!-- Form fields for editing memoryDate, description, and image -->
       <input v-model="editableMemory.memoryDate" placeholder="Memory Date" />
       <textarea
@@ -69,8 +69,11 @@ export default {
     getMemories() {
       MemoryService.list()
         .then((response) => {
-          this.memories = response.data; // Set the retrieved memories to the component's data
-          this.filteredMemories = response.data; // Initialize filtered memories
+          // Set the retrieved memories to the component's data
+          this.memories = response.data.sort(
+            (a, b) => new Date(a.memoryDate) - new Date(b.memoryDate)
+          );
+          this.filteredMemories = this.memories; // Initialize filtered memories
         })
         .catch((error) => {
           console.error("Error fetching memories.", error); // Log errors to the console
@@ -95,10 +98,12 @@ export default {
           this.memories = this.memories.map((memory) =>
             memory.memoryId === updatedData.memoryId ? updatedData : memory
           );
-          // Update memory in the filtered list
-          this.filteredMemories = this.filteredMemories.map((memory) =>
-            memory.memoryId === updatedMemory.memoryId ? updatedMemory : memory
+          // Re-sort memories after updating one (Array.prototype.sort method)
+          this.memories.sort(
+            (a, b) => new Date(a.memoryDate) - new Date(b.memoryDate)
           );
+          this.filteredMemories = this.memories; // Update filtered memories
+
           // Close the edit modal or interface, when appropriate
           this.showEditModal = false;
         })
@@ -142,6 +147,10 @@ export default {
 
 <style scoped>
 /* Scoped styles for the ProfileView component */
+
+#profile-view {
+  margin: 10px;
+}
 .toolbar {
   display: flex;
   justify-content: space-between;

@@ -101,7 +101,7 @@ h2 {
   font-family: "Playfair Display", serif;
   position: relative;
   overflow: hidden;
-  margin-top: 100px;
+  margin-top: 80px;
 }
 
 #intro img {
@@ -120,7 +120,7 @@ h2 {
 
 .overlay--about-text {
   position: absolute;
-  top: 30%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
@@ -132,11 +132,11 @@ h2 {
 
 .get-started-btn {
   position: absolute;
-  bottom: 20px;
+  top: 35%;
   left: 50%;
   transform: translateX(-50%);
   padding: 15px 30px;
-  background-color: #ebe7d9;
+  background-color: #e0ddce;
   color: #101d24;
   border: none;
   cursor: pointer;
@@ -146,17 +146,18 @@ h2 {
   font-weight: bold;
   text-transform: uppercase;
   z-index: 6;
+  font-family: Poppins;
 }
 
 .get-started-btn:hover {
-  background-color: #e0ddce;
+  background-color: #f8f5e4;
   text-decoration: underline;
 }
 
 #about-section {
   margin: 10px;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 80px;
+  margin-bottom: 80px;
 }
 
 #about-section p {

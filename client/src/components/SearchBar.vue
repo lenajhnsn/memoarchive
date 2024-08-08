@@ -8,13 +8,6 @@
           placeholder="Search Memories"
           :style="inputStyle"
         />
-        <button
-          id="search-button"
-          v-on:click="searchMemories"
-          class="search-button"
-        >
-          Search
-        </button>
       </div>
     </main>
   </div>
@@ -31,6 +24,12 @@ export default {
     memories: Array, // Array of memories passed from parent (ProfileView) component
     onSearch: Function, // Callback function to update filtered memories in parent component
   },
+
+  watch: {
+    // Watch fro changes to the searchTerm and call the searchMemories method
+    searchTerm: "searchMemories"
+  },
+
   methods: {
     // Function to filter memories based on the search term
     searchMemories() {
@@ -49,16 +48,17 @@ export default {
 .search-bar {
   display: flex;
   align-items: center;
+  gap: 10px;
+
 }
 
-.search-input {
+#search-input {
   background-color: white;
   color: #101d24;
-  border: none;
   border-radius: 8px;
+  border-color: #101d24;
   font-size: 16px;
   font-weight: bold;
-  margin-left: 20px;
   padding: 10px 20px;
   cursor: pointer;
 }
