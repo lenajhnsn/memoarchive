@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.util.List;
 
+@CrossOrigin
 @Component
 @RestController // Includes added functionality in addition to that provided by @Controller
 @RequestMapping("/permission") // Set base path for the controller

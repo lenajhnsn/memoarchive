@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.util.List;
 
+@CrossOrigin
 @Component
 @RestController //TODO: Add principal to controller classes
 @RequestMapping("/tag")

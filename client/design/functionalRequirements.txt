@@ -1,0 +1,28 @@
+# FRONT END FUNCTIONAL REQUIREMENTS
+
+
+## Anonymous User Functional Requirements
+
+### View Home Page:
+As an anonymous user, I want to access the home page of the application, so that I can understand the purpose and features of  Memo Archive.
+
+### View About Page:
+As an anonymous user, I want to view the About page, so that I can learn more about Memo Archive and its mission.
+
+### View How It Works Page:
+As an anonymous user, I want to view the "How It Works" page, so that I can understand how to use the app and its benefits.
+
+## Authenticated User Functional Requirements
+
+### Add Memories:
+As an authenticated user, I want to add memories to my timeline, so that I can chronicle life events.
+
+### Update Memories:
+As an authenticated user, I want to update my memories by editing or adding new content to them, keeping my timeline up-to-date.
+
+### Retrieve Memories:
+As an authenticated user, I want to retrieve all the memories I have added to my timeline.
+
+
+### Delete Memories:
+As an authenticated user, I want to delete memories from my timeline, so I can remove any unwanted or outdated content.

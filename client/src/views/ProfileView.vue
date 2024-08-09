@@ -20,20 +20,37 @@
         v-bind:onDelete="handleDeleteMemory"
       />
     </div>
-    <dialog ref="editDialog" v-if="editableMemory" class="edit-modal">
-      <!-- Form fields for editing memoryDate, description, and image -->
-      <input v-model="editableMemory.memoryDate" placeholder="Memory Date" />
-      <textarea
-        v-model="editableMemory.description"
-        placeholder="Description"
-      ></textarea>
-      <input v-model="editableMemory.content" placeholder="Image URL" />
+    <div class="edit-container">
+      <dialog ref="editDialog" v-if="editableMemory" class="edit-modal">
+        <!-- Form fields for editing memoryDate, description, and image -->
+        <form class="edit-form">
+          <input
+            class="edit-date"
+            v-model="editableMemory.memoryDate"
+            placeholder="Memory Date"
+          />
+          <textarea
+            class="edit-description"
+            v-model="editableMemory.description"
+            placeholder="Description"
+          ></textarea>
+          <input
+            class="edit-img"
+            v-model="editableMemory.content"
+            placeholder="Image URL"
+          />
 
-      <!-- Button to save the changes -->
-      <button v-on:click="handleUpdateMemory()">Save</button>
-      <!-- Button to cancel the editing -->
-      <button v-on:click="closeEditModal()">Cancel</button>
-    </dialog>
+          <!-- Button to save the changes -->
+          <button class="save-button" v-on:click="handleUpdateMemory()">
+            Save
+          </button>
+          <!-- Button to cancel the editing -->
+          <button class="cancel-button" v-on:click="closeEditModal()">
+            Cancel
+          </button>
+        </form>
+      </dialog>
+    </div>
   </div>
 </template>
 
@@ -171,5 +188,70 @@ export default {
 
 h1 {
   margin-top: 100px;
+}
+/* Styling for the dialog modal itself */
+.edit-modal {
+  background-color: white; /* Set background to white for consistency */
+  border: 2px solid #888; /* Add border to match the login container */
+  padding: 20px;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 8px; /* Rounded corners */
+  margin: auto; /* Center the modal on the screen */
+  font-family: "Poppins", sans-serif; /* Use the same font as the login form */
+}
+
+/* Styling for the form inside the modal */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+/* Styling for the input fields */
+.edit-date,
+.edit-input,
+.edit-description {
+  display: block;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Styling for the description textarea */
+.edit-description {
+  resize: vertical;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Styling for the save and cancel buttons */
+.save-button,
+.cancel-button {
+  background-color: #101d24; /* Base button color */
+  color: white; /* Text color */
+  border: none;
+  padding: 10px; /* Match the padding of the login buttons */
+  font-size: 16px;
+  border-radius: 4px; /* Consistent rounded corners */
+  cursor: pointer;
+  margin-bottom: 10px; /* Consistent margin at the bottom */
+}
+
+/* Hover effects for buttons */
+.save-button:hover,
+.cancel-button:hover {
+  background-color: #234150; /* Darken on hover for both buttons */
+}
+
+/* Distinct background colors for save and cancel buttons */
+.save-button {
+  background-color: #101d24;
+  margin-top: 10px;
+}
+
+.cancel-button {
+  background-color: #86847b; /* Distinctive color for cancel button */
 }
 </style>

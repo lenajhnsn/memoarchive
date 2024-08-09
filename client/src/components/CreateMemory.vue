@@ -106,7 +106,6 @@ export default {
 </script>
 
 <style scoped>
-<style scoped>
 /* Styling for the main container of the create memory form */
 .create-memory {
   margin-top: 20px;

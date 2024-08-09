@@ -14,6 +14,7 @@ import java.security.Principal;
 import java.util.List;
 //TODO: Learn about how to add logging functionality for future logs/debugging
 
+@CrossOrigin
 @Component
 @RestController // Includes added functionality in addition to that provided by @Controller
 @RequestMapping("/memorycontribution") // Set base path for the controller
