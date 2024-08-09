@@ -159,7 +159,7 @@ span:hover {
 }
 
 /* Media query for smaller screens */
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .login-container {
     width: 80%; /* Increase width to 80% on smaller screens */
     max-width: none; /* Remove max-width for flexibility */
