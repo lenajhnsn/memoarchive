@@ -23,6 +23,13 @@ export default {};
 </script>
 
 <style scoped>
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+ 
 h2 {
   font-family: "Playfair Display", serif;
   font-size: 40px;

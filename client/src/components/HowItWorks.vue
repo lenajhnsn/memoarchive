@@ -51,6 +51,11 @@ export default {};
 </script>
 
 <style scoped>
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 body {
   font-family: "Playfair Display", serif;
   margin: 10px;

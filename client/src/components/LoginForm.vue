@@ -100,6 +100,7 @@ body {
   width: 30%;
   border-radius: 8px;
   font-family: "Poppins", sans-serif;
+  max-width: 400px; 
 }
 
 h2 {
@@ -155,5 +156,18 @@ span {
 span:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 700px) {
+  .login-container {
+    width: 80%; /* Increase width to 80% on smaller screens */
+    max-width: none; /* Remove max-width for flexibility */
+    margin: 20% auto; /* Adjust margin based on screen size */
+  }
+
+  h2 {
+    font-size: 32px; /* Adjust the font size for smaller screens */
+  }
 }
 </style>

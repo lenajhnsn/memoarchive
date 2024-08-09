@@ -96,6 +96,17 @@ h2 {
   font-size: 40px;
 }
 
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 28px; /* Adjust the font size for mobile devices */
+  }
+
+  .overlay--about-text h2 {
+    font-size: 24px; /* Adjust the font size for the intro section on mobile */
+  }
+}
+
 #intro {
   max-width: 100%;
   font-family: "Playfair Display", serif;

@@ -177,4 +177,17 @@ span:hover {
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* Media query for smaller screens */
+@media (max-width: 700px) {
+  .register-content {
+    width: 80%; /* Increase width to 80% on smaller screens */
+    max-width: none; /* Remove max-width for flexibility */
+    margin: 20% auto; /* Adjust margin based on screen size */
+  }
+
+  h2 {
+    font-size: 32px; /* Adjust the font size for smaller screens */
+  }
+}
 </style>

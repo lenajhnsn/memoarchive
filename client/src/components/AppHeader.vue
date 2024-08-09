@@ -20,9 +20,9 @@
 
           <!-- Show Login/Logout based on the state of user authentication -->
           <li v-if="isLoggedIn">
-            <router-link v-on:click.prevent="logout" to="/">Logout</router-link>
+            <router-link v-on:click.prevent="logout" to="/logout">Logout</router-link>
           </li>
-          <li v-else><router-link to="/login">Login</router-link></li>
+          <li v-if="!isLoggedIn"><router-link to="/login">Login</router-link></li>
 
           <!-- Profile link/icon only shown when logged in -->
           <li v-if="isLoggedIn">
@@ -44,13 +44,13 @@
 export default {
   computed: {
     isLoggedIn() {
-      return this.$store.state.token !== null;
+      return this.$store.state.token;
     },
   },
   methods: {
     logout() {
       this.$store.commit("LOGOUT");
-      this.$router.push("/"); // Redirect to home after logout
+      this.$router.push("/login"); // Redirect to home after logout
     },
   },
 };
@@ -120,5 +120,16 @@ a:hover {
   width: 24px;
   height: 24px;
   border-radius: 50%;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  nav ul {
+    font-size: 14px; /* Reduce font size for mobile */
+  }
+
+  nav ul li {
+    margin-right: 10px; /* Reduce margin for mobile */
+  }
 }
 </style>

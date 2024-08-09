@@ -2,9 +2,12 @@
   <div id="app">
     <main class="main-content">
       <div class="create-memory">
-        <button v-on:click="openCreateForm" class="create-button">
+        <font-awesome-icon 
+        icon="fa-solid fa-circle-plus"
+        v-on:click="openCreateForm" 
+        class="create-icon">
           Add Memory
-        </button>
+        </font-awesome-icon>
         <dialog ref="createDialog" class="create-dialog">
           <form method="dialog" class="create-form">
             <!-- <div v-if="showCreateForm" class="create-form"> -->
@@ -112,7 +115,7 @@ export default {
 }
 
 /* Styling for the button to open the modal */
-.create-button {
+.create-icon {
   background-color: #101d24;
   color: #ebe7d9;
   border: none;
@@ -120,9 +123,10 @@ export default {
   font-size: 16px;
   font-weight: bold;
   text-transform: uppercase;
-  padding: 10px 20px;
+  padding: 10px;
   cursor: pointer;
-  margin: 0 auto;
+  margin-right: 20px;
+  margin-left: 10px;
 }
 
 /* Styling for the dialog modal itself */
